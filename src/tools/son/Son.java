@@ -16,12 +16,12 @@ import tools.son.exceptions.*;
 public class Son implements Serializable {
 
 	/**
-	 * son qui peut �tre jou�
+	 * son qui peut être joué
 	 */
     private Sound sound ;
 
     /**
-     * Cr�ation d'un objet de type Sound, � partir d'un fichier de son
+     * Création d'un objet de type Sound, à partir d'un fichier de son
      * @param nomfic url du fichier
      */
     public Son (URL nomfic) {
@@ -40,7 +40,7 @@ public class Son implements Serializable {
     }
 
     /**
-     * ferme le son (lib�re l'objet de la m�moire)
+     * ferme le son (libère l'objet de la mémoire)
      */
     public void close() {
         this.sound.fermer();

@@ -3,7 +3,7 @@ package tools.son.exceptions;
 import java.io.Serializable;
 
 /**
- * Exception lev�e pour signale un manque de droit, un flux coup� en cours de routez, une erreur ... <br>
+ * Exception levée pour signale un manque de droit, un flux coupé en cours de routez, une erreur ... <br>
  */
 
 public class SonErreurDiverse
@@ -11,7 +11,7 @@ public class SonErreurDiverse
 {
   /**
    * Construit l'exception
-   * @param e Exception g�n�r�e � la construction du son
+   * @param e Exception générée à la construction du son
    */
   public SonErreurDiverse(Exception e)
   {

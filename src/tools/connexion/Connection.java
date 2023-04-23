@@ -13,7 +13,7 @@ import java.net.Socket;
 public class Connection extends Thread {
 	
 	/**
-	 * canal d'entr�e
+	 * canal d'entrée
 	 */
 	private ObjectInputStream in ;
 	/**
@@ -21,43 +21,43 @@ public class Connection extends Thread {
 	 */
 	private ObjectOutputStream out ; 
 	/**
-	 * objet de lien avec une autre classe qui impl�mente AsyncResponse pour transf�rer les r�ponses
+	 * objet de lien avec une autre classe qui implémente AsyncResponse pour transférer les réponses
 	 */
 	private AsyncResponse delegate;
 
 	/**
-	 * Constructeur : cr�e une connexion � partir d'un socket (contenant les sp�cificit�s de l'ordinateur distant)
+	 * Constructeur : crée une connexion à partir d'un socket (contenant les spécificités de l'ordinateur distant)
 	 * @param socket objet de connexion de type serveur ou client
-	 * @param delegate instance de la classe vers laquelle il faut transf�rer les r�ponses
+	 * @param delegate instance de la classe vers laquelle il faut transférer les réponses
 	 */
 	public Connection(Socket socket, AsyncResponse delegate) {
 		this.delegate = delegate;
-		// cr�ation du canal de sortie pour envoyer des informations
+		// création du canal de sortie pour envoyer des informations
 		try {
 			this.out = new ObjectOutputStream(socket.getOutputStream()) ;
 		} catch (IOException e) {
-			System.out.println("erreur cr�ation canal out : "+e);
+			System.out.println("erreur création canal out : "+e);
 			System.exit(0);
 		}
-		// cr�ation du canal d'entr�e pour recevoir des informations
+		// création du canal d'entrée pour recevoir des informations
 		try {
 			this.in = new ObjectInputStream(socket.getInputStream()) ;
 		} catch (IOException e) {
-			System.out.println("erreur cr�ation canal in : "+e);
+			System.out.println("erreur création canal in : "+e);
 			System.exit(0);
 		}
-		// d�marrage du thread d'�coute (attente d'un message de l'ordi distant)
+		// démarrage du thread d'écoute (attente d'un message de l'ordi distant)
 		this.start() ;
-		// envoi de l'instance de connexion vers la classe qui impl�mente AsyncResponse pour r�cup�rer la r�ponse
+		// envoi de l'instance de connexion vers la classe qui implémente AsyncResponse pour récupérer la réponse
 		this.delegate.reception(this, "connexion", null);
 	}
 	
 	/**
 	 * Envoi d'un objet vers l'ordinateur distant, sur le canal de sortie
-	 * @param unObjet contieny l'objet � envoyer
+	 * @param unObjet contieny l'objet à envoyer
 	 */
 	public synchronized void envoi(Object unObjet) {
-		// l'envoi ne peut se faire que si un objet delegate existe (pour r�cup�rer la r�ponse)
+		// l'envoi ne peut se faire que si un objet delegate existe (pour récupérer la réponse)
 		if(delegate != null) {
 			try {
 				this.out.reset();
@@ -70,36 +70,36 @@ public class Connection extends Thread {
 	}
 	
 	/**
-	 * M�thode thread qui permet d'attendre des messages provenant de l'ordi distant
+	 * Méthode thread qui permet d'attendre des messages provenant de l'ordi distant
 	 */
 	public void run() {
-		// permet de savoir s'il faut continuer � �couter
+		// permet de savoir s'il faut continuer à écouter
 		boolean inOk = true ;
-		// objet qui va r�cup�rer l'information re�ue
+		// objet qui va récupérer l'information reçue
 		Object reception ;
-		// boucle tant qu'il faut �couter
+		// boucle tant qu'il faut écouter
 		while (inOk) {
 			try {
-				// r�ception d'un objet sur le canal d'entr�e
+				// réception d'un objet sur le canal d'entrée
 				reception = in.readObject();
-				// envoi de l'information re�ue vers la classe qui impl�mente AsyncResponse pour r�cup�rer la r�ponse
-				delegate.reception(this, "r�ception", reception);
+				// envoi de l'information reçue vers la classe qui implémente AsyncResponse pour récupérer la réponse
+				delegate.reception(this, "réception", reception);
 			} catch (ClassNotFoundException e) {
-				// probl�me grave qui ne devrait pas se produire : arr�t du programme
-				System.out.println("erreur de classe sur r�ception : "+e);
+				// problème grave qui ne devrait pas se produire : arrêt du programme
+				System.out.println("erreur de classe sur réception : "+e);
 				System.exit(0);
 			} catch (IOException e) {
-				// envoi de l'information de d�connexion  vers la classe qui impl�mente AsyncResponse pour r�cup�rer la r�ponse
-				delegate.reception(this, "d�connexion", null);
-				// demande d'arr�ter de boucler sur l'attente d'une r�ponse
+				// envoi de l'information de déconnexion  vers la classe qui implémente AsyncResponse pour récupérer la réponse
+				delegate.reception(this, "déconnexion", null);
+				// demande d'arrêter de boucler sur l'attente d'une réponse
 				inOk = false ;
 				// l'ordinateur distant n'est plus accessible
-				System.out.println("l'ordinateur distant est d�connect�");
-				// fermeture du canal d'entr�e
+				System.out.println("l'ordinateur distant est déconnecté");
+				// fermeture du canal d'entrée
 				try {
 					in.close();
 				} catch (IOException e1) {
-					System.out.println("la fermeture du canal d'entr�e a �chou� : "+e);
+					System.out.println("la fermeture du canal d'entrée a échoué : "+e);
 				}
 			}
 		}

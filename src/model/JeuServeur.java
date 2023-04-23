@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**
- * Gestion du jeu c�t� serveur
+ * Gestion du jeu côté serveur
  *
  */
 public class JeuServeur extends Jeu {
@@ -37,13 +37,13 @@ public class JeuServeur extends Jeu {
 
 	/**
 	 * Envoi d'une information vers tous les clients
-	 * fais appel plusieurs fois � l'envoi de la classe Jeu
+	 * fais appel plusieurs fois à l'envoi de la classe Jeu
 	 */
 	public void envoi() {
 	}
 
 	/**
-	 * G�n�ration des murs
+	 * Génération des murs
 	 */
 	public void constructionMurs() {
 	}

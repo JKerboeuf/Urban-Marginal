@@ -5,7 +5,7 @@ import java.net.URL;
 import java.io.Serializable;
 
 /**
- * Exception lev�e pour indiquer que le son n'a pas �t� trouv� <br>
+ * Exception levée pour indiquer que le son n'a pas été trouvé <br>
  */
 
 public class SonIntrouvableException
@@ -13,7 +13,7 @@ public class SonIntrouvableException
 {
   /**
    * Constrtuit l'exception pour les fichiers
-   * @param fichier Fichier non trouv�
+   * @param fichier Fichier non trouvé
    */
   public SonIntrouvableException(File fichier)
   {
@@ -21,7 +21,7 @@ public class SonIntrouvableException
   }
   /**
    * Construit l'exception pour les URL
-   * @param url URL non trouv�e
+   * @param url URL non trouvée
    */
   public SonIntrouvableException(URL url)
   {
@@ -29,7 +29,7 @@ public class SonIntrouvableException
   }
   /**
    * Construit l'exception pour les sons de la ressource
-   * @param nom Nom de la ressource non trouv�e
+   * @param nom Nom de la ressource non trouvée
    */
   public SonIntrouvableException(String nom)
   {

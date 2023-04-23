@@ -7,25 +7,25 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 /**
- * Gestion d'un client : cr�ation d'une connexion cliente
+ * Gestion d'un client : création d'une connexion cliente
  * @author emds
  *
  */
 public class ClientSocket {
 	
 	/**
-	 * Constructeur : cr�e le socket de type client pour se connecter � un serveur (avec son ip et port d'�coute)
-	 * @param delegate instance de la classe vers laquelle il faut transf�rer les r�ponses
+	 * Constructeur : crée le socket de type client pour se connecter à un serveur (avec son ip et port d'écoute)
+	 * @param delegate instance de la classe vers laquelle il faut transférer les réponses
 	 * @param ip adresse IP du serveur
-	 * @param port num�ro port d'�coute du serveur
+	 * @param port numéro port d'écoute du serveur
 	 */
 	public ClientSocket (AsyncResponse delegate, String ip, int port) {
 		try {
 			Socket socket = new Socket(ip, port);
-			System.out.println("connexion serveur r�ussie");
-			// la connexion ne peut se faire que si un objet delegate existe (pour r�cup�rer la r�ponse)
+			System.out.println("connexion serveur réussie");
+			// la connexion ne peut se faire que si un objet delegate existe (pour récupérer la réponse)
 			if(delegate != null) {
-				// cr�ation d'une connexion pour ce client, pour la communication avec le serveur (envoi et r�ception d'informations)
+				// création d'une connexion pour ce client, pour la communication avec le serveur (envoi et réception d'informations)
 				new Connection(socket, delegate) ;
 			}
 		} catch (UnknownHostException e) {

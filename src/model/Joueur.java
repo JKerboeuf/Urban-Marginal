@@ -7,7 +7,7 @@ package model;
 public class Joueur extends Objet {
 
 	/**
-	 * vie de d�part pour tous les joueurs
+	 * vie de départ pour tous les joueurs
 	 */
 	private static final int MAXVIE = 10 ;
 	/**
@@ -24,7 +24,7 @@ public class Joueur extends Objet {
 	 */
 	private String pseudo ;
 	/**
-	 * n� correspondant au personnage (avatar) pour le fichier correspondant
+	 * numéro correspondant au personnage (avatar) pour le fichier correspondant
 	 */
 	private int numPerso ; 
 	/**
@@ -32,7 +32,7 @@ public class Joueur extends Objet {
 	 */
 	private JeuServeur jeuServeur ;
 	/**
-	 * num�ro d'�tape dans l'animation (de la marche, touch� ou mort)
+	 * numéro d'étape dans l'animation (de la marche, touché ou mort)
 	 */
 	private int etape ;
 	/**
@@ -44,7 +44,7 @@ public class Joueur extends Objet {
 	 */
 	private int vie ; 
 	/**
-	 * tourn� vers la gauche (0) ou vers la droite (1)
+	 * tourné vers la gauche (0) ou vers la droite (1)
 	 */
 	private int orientation ;
 	
@@ -55,13 +55,13 @@ public class Joueur extends Objet {
 	}
 
 	/**
-	 * Initialisation d'un joueur (pseudo et num�ro, calcul de la 1�re position, affichage, cr�ation de la boule)
+	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position, affichage, création de la boule)
 	 */
 	public void initPerso() {
 	}
 
 	/**
-	 * Calcul de la premi�re position al�atoire du joueur (sans chevaucher un autre joueur ou un mur)
+	 * Calcul de la première position aléatoire du joueur (sans chevaucher un autre joueur ou un mur)
 	 */
 	private void premierePosition() {
 	}
@@ -73,19 +73,19 @@ public class Joueur extends Objet {
 	}
 
 	/**
-	 * G�re une action re�ue et qu'il faut afficher (d�placement, tire de boule...)
+	 * Gère une action reçue et qu'il faut afficher (déplacement, tire de boule...)
 	 */
 	public void action() {
 	}
 
 	/**
-	 * G�re le d�placement du personnage
+	 * Gère le déplacement du personnage
 	 */
 	private void deplace() { 
 	}
 
 	/**
-	 * Contr�le si le joueur touche un des autres joueurs
+	 * Contrôle si le joueur touche un des autres joueurs
 	 * @return true si deux joueurs se touchent
 	 */
 	private Boolean toucheJoueur() {
@@ -93,7 +93,7 @@ public class Joueur extends Objet {
 	}
 
 	/**
-	* Contr�le si le joueur touche un des murs
+	* Contrôle si le joueur touche un des murs
 	 * @return true si un joueur touche un mur
 	 */
 	private Boolean toucheMur() {
@@ -101,19 +101,19 @@ public class Joueur extends Objet {
 	}
 	
 	/**
-	 * Gain de points de vie apr�s avoir touch� un joueur
+	 * Gain de points de vie après avoir touché un joueur
 	 */
 	public void gainVie() {
 	}
 	
 	/**
-	 * Perte de points de vie apr�s avoir �t� touch� 
+	 * Perte de points de vie après avoir été touché 
 	 */
 	public void perteVie() {
 	}
 	
 	/**
-	 * vrai si la vie est � 0
+	 * vrai si la vie est à 0
 	 * @return true si vie = 0
 	 */
 	public Boolean estMort() {
@@ -121,7 +121,7 @@ public class Joueur extends Objet {
 	}
 	
 	/**
-	 * Le joueur se d�connecte et disparait
+	 * Le joueur se déconnecte et disparait
 	 */
 	public void departJoueur() {
 	}

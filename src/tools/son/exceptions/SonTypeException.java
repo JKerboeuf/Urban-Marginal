@@ -3,7 +3,7 @@ package tools.son.exceptions;
 import java.io.Serializable;
 
 /**
- * Exception lev�e si le type de son n'est pas reconnu <br>
+ * Exception levée si le type de son n'est pas reconnu <br>
  */
 
 public class SonTypeException
