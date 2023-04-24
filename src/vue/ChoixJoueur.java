@@ -1,6 +1,6 @@
 package vue;
 
-import java.awt.EventQueue;
+import java.awt.Dimension;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -39,16 +39,20 @@ public class ChoixJoueur extends JFrame {
 	 * Event sur le clic du label go
 	 */
 	private void lblGo_clic() {
-		
+		new Arene().setVisible(true);
+		this.dispose();
 	}
 	
 	/**
 	 * Create the frame.
 	 */
 	public ChoixJoueur() {
+		this.getContentPane().setPreferredSize(new Dimension(400, 275));
+		this.pack();
 		setTitle("Choice");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 415, 313);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -65,7 +69,7 @@ public class ChoixJoueur extends JFrame {
 		
 		txtPseudo = new JTextField();
 		txtPseudo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPseudo.setBounds(143, 246, 120, 19);
+		txtPseudo.setBounds(140, 246, 123, 22);
 		contentPane.add(txtPseudo);
 		txtPseudo.setColumns(10);
 		

@@ -1,7 +1,5 @@
 package vue;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,21 +18,23 @@ public class EntreeJeu extends JFrame {
 	 * Event sur le clic du bouton start
 	 */
 	private void btnStart_clic() {
-		System.out.println("hello");
+		new Arene().setVisible(true);
+		this.dispose();
 	}
 
 	/**
 	 * Event sur le clic du bouton connect
 	 */
 	private void btnConnect_clic() {
-		
+		new ChoixJoueur().setVisible(true);
+		this.dispose();
 	}
 
 	/**
 	 * Event sur le clic du bouton exit
 	 */
 	private void btnExit_clic() {
-		
+		System.exit(0);
 	}
 
 	/**
@@ -44,6 +44,7 @@ public class EntreeJeu extends JFrame {
 		setTitle("Urban Marginal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 364, 144);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
