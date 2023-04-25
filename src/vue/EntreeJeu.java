@@ -43,7 +43,7 @@ public class EntreeJeu extends JFrame {
 	public EntreeJeu() {
 		setTitle("Urban Marginal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 364, 144);
+		setBounds(100, 100, 383, 144);
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,11 +56,11 @@ public class EntreeJeu extends JFrame {
 		contentPane.add(lblFond);
 
 		JLabel lblNewLabel = new JLabel("Start a server :");
-		lblNewLabel.setBounds(10, 11, 81, 14);
+		lblNewLabel.setBounds(10, 11, 131, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Connect to a server :");
-		lblNewLabel_1.setBounds(10, 39, 114, 14);
+		lblNewLabel_1.setBounds(10, 39, 131, 14);
 		contentPane.add(lblNewLabel_1);
 
 		JButton btnStartServer = new JButton("Start");
@@ -69,7 +69,7 @@ public class EntreeJeu extends JFrame {
 				btnStart_clic();
 			}
 		});
-		btnStartServer.setBounds(249, 7, 89, 23);
+		btnStartServer.setBounds(275, 7, 89, 23);
 		contentPane.add(btnStartServer);
 
 		JButton btnConnect = new JButton("Connect");
@@ -78,7 +78,7 @@ public class EntreeJeu extends JFrame {
 				btnConnect_clic();
 			}
 		});
-		btnConnect.setBounds(249, 35, 89, 23);
+		btnConnect.setBounds(275, 35, 89, 23);
 		contentPane.add(btnConnect);
 
 		JButton btnExit = new JButton("Exit");
@@ -87,11 +87,12 @@ public class EntreeJeu extends JFrame {
 				btnExit_clic();
 			}
 		});
-		btnExit.setBounds(10, 71, 328, 23);
+		btnExit.setBounds(275, 71, 89, 23);
 		contentPane.add(btnExit);
 
 		txtServerIp = new JTextField();
-		txtServerIp.setBounds(125, 36, 114, 20);
+		txtServerIp.setText("127.0.0.1");
+		txtServerIp.setBounds(151, 36, 114, 20);
 		contentPane.add(txtServerIp);
 		txtServerIp.setColumns(10);
 	}

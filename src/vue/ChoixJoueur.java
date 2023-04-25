@@ -25,14 +25,14 @@ public class ChoixJoueur extends JFrame {
 	 * Event sur le clic du label gauche
 	 */
 	private void lblLeft_clic() {
-
+		System.out.println("Left");
 	}
 
 	/**
 	 * Event sur le clic du label droit
 	 */
 	private void lblRight_clic() {
-
+		System.out.println("Right");
 	}
 
 	/**
