@@ -16,9 +16,7 @@ public class Arene extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtInput;
 
-	/**
-	 * Create the frame.
-	 */
+	// Create the frame.
 	public Arene() {
 		this.getContentPane().setPreferredSize(new Dimension(800, 800));
 		this.pack();
@@ -44,7 +42,7 @@ public class Arene extends JFrame {
 		txtInput.setBounds(0, 600, 800, 30);
 		contentPane.add(txtInput);
 		txtInput.setColumns(10);
-		
+
 		JTextArea txtChat = new JTextArea();
 		txtChat.setBounds(0, 630, 800, 170);
 		contentPane.add(txtChat);

@@ -50,19 +50,19 @@ public class EntreeJeu extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblFond = new JLabel("");
 		lblFond.setBounds(0, 0, 46, 14);
 		contentPane.add(lblFond);
-		
+
 		JLabel lblNewLabel = new JLabel("Start a server :");
 		lblNewLabel.setBounds(10, 11, 81, 14);
 		contentPane.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Connect to a server :");
 		lblNewLabel_1.setBounds(10, 39, 114, 14);
 		contentPane.add(lblNewLabel_1);
-		
+
 		JButton btnStartServer = new JButton("Start");
 		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,7 +71,7 @@ public class EntreeJeu extends JFrame {
 		});
 		btnStartServer.setBounds(249, 7, 89, 23);
 		contentPane.add(btnStartServer);
-		
+
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +80,7 @@ public class EntreeJeu extends JFrame {
 		});
 		btnConnect.setBounds(249, 35, 89, 23);
 		contentPane.add(btnConnect);
-		
+
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,7 +89,7 @@ public class EntreeJeu extends JFrame {
 		});
 		btnExit.setBounds(10, 71, 328, 23);
 		contentPane.add(btnExit);
-		
+
 		txtServerIp = new JTextField();
 		txtServerIp.setBounds(125, 36, 114, 20);
 		contentPane.add(txtServerIp);

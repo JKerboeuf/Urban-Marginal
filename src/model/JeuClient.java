@@ -5,13 +5,13 @@ package model;
  *
  */
 public class JeuClient extends Jeu {
-	
+
 	/**
 	 * Controleur
 	 */
 	public JeuClient() {
 	}
-	
+
 	@Override
 	public void connexion() {
 	}
@@ -19,14 +19,14 @@ public class JeuClient extends Jeu {
 	@Override
 	public void reception() {
 	}
-	
+
 	@Override
 	public void deconnexion() {
 	}
 
 	/**
-	 * Envoi d'une information vers le serveur
-	 * fais appel une fois à l'envoi dans la classe Jeu
+	 * Envoi d'une information vers le serveur fais appel une fois à l'envoi dans la
+	 * classe Jeu
 	 */
 	public void envoi() {
 	}
