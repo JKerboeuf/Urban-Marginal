@@ -1,16 +1,19 @@
-package vue;
+package view;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import control.Controle;
+
 
 public class EntreeJeu extends JFrame {
-
+	private Controle controle;
 	private JPanel contentPane;
 	private JTextField txtServerIp;
 
@@ -18,16 +21,14 @@ public class EntreeJeu extends JFrame {
 	 * Event sur le clic du bouton start
 	 */
 	private void btnStart_clic() {
-		new Arene().setVisible(true);
-		this.dispose();
+		controle.evenementEntreeJeu("serveur");
 	}
 
 	/**
 	 * Event sur le clic du bouton connect
 	 */
 	private void btnConnect_clic() {
-		new ChoixJoueur().setVisible(true);
-		this.dispose();
+		controle.evenementEntreeJeu(txtServerIp.getText());
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class EntreeJeu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EntreeJeu() {
+	public EntreeJeu(Controle controle) {
 		setTitle("Urban Marginal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 383, 144);
@@ -95,5 +96,7 @@ public class EntreeJeu extends JFrame {
 		txtServerIp.setBounds(151, 36, 114, 20);
 		contentPane.add(txtServerIp);
 		txtServerIp.setColumns(10);
+		
+		this.controle = controle;
 	}
 }
