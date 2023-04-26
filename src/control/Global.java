@@ -1,8 +1,6 @@
 package control;
 
 public interface Global {
-	int PORT = 6666;
-	int CHAR_MAX = 3;
 	String SEPARATOR = "/";
 	String BG_PATH = "fonds" + SEPARATOR;
 	String BULLET_PATH = "boules" + SEPARATOR;
@@ -23,6 +21,15 @@ public interface Global {
 	String RECEPTION = "réception";
 	String DECONNEXION = "déconnexion";
 	String PSEUDO = "pseudo";
+	String SERVER = "serveur";
+	String AJOUTMUR = "ajout mur";
+	String AJOUTPANELMURS = "ajout panel murs";
+	int PORT = 6666;
+	int CHAR_MAX = 3;
+	int ARENA_WIDTH = 800;
+	int ARENA_HEIGHT = 600;
+	int WALLS_MAX = 20;
+	int WALL_SIZE = 35;
 	int HP_MAX = 10;
 	int GAIN = 1;
 	int PERTE = 2;

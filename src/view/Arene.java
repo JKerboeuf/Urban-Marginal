@@ -5,7 +5,6 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import control.Global;
 
@@ -16,21 +15,41 @@ import javax.swing.JScrollPane;
 
 public class Arene extends JFrame implements Global {
 	private JPanel contentPane;
+	private JPanel jpnMurs;
 	private JTextField txtInput;
 	private JTextArea txtChat;
 
+	public JPanel getJpnMurs() {
+		return jpnMurs;
+	}
+
+	public void setJpnMurs(JPanel jpnMurs) {
+		this.jpnMurs.add(jpnMurs);
+		this.jpnMurs.repaint();
+	}
+
+	public void AjoutMurs(Object unMur) {
+		jpnMurs.add((JLabel) unMur);
+		jpnMurs.repaint();
+	}
+
 	// Create the frame.
 	public Arene() {
-		this.getContentPane().setPreferredSize(new Dimension(800, 800));
+		this.getContentPane().setPreferredSize(new Dimension(ARENA_WIDTH, ARENA_HEIGHT + 200));
 		this.pack();
 		this.setResizable(false);
 		setTitle("Arena");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 816, 816);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		jpnMurs = new JPanel();
+		jpnMurs.setBounds(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
+		jpnMurs.setOpaque(false);
+		jpnMurs.setLayout(null);
+		contentPane.add(jpnMurs);
 
 		txtInput = new JTextField();
 		txtInput.setBounds(0, 600, 800, 30);
@@ -48,7 +67,7 @@ public class Arene extends JFrame implements Global {
 		JLabel lblFond = new JLabel("");
 		URL resource = getClass().getClassLoader().getResource(BG_ARENA);
 		lblFond.setIcon(new ImageIcon(resource));
-		lblFond.setBounds(0, 0, 800, 600);
+		lblFond.setBounds(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
 		contentPane.add(lblFond);
 	}
 }

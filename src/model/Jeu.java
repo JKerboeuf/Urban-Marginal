@@ -9,9 +9,11 @@ import tools.connexion.Connection;
  */
 public abstract class Jeu {
 	protected Controle controle;
+
 	/**
 	 * Réception d'une connexion (pour communiquer avec un ordinateur distant)
-	 * @param connection TODO
+	 * 
+	 * @param connection objet connection pour la communication
 	 */
 	public abstract void connexion(Connection connection);
 
@@ -31,5 +33,4 @@ public abstract class Jeu {
 	public void envoi(Connection connection, Object info) {
 		this.controle.envoi(connection, info);
 	}
-
 }
