@@ -1,17 +1,11 @@
 package model;
 
+import control.Global;
+
 /*
  * Gestion des joueurs
  */
-public class Joueur extends Objet {
-
-	// vie de départ pour tous les joueurs
-	private static final int MAXVIE = 10;
-	// gain de points de vie lors d'une attaque
-	private static final int GAIN = 1;
-	// perte de points de vie lors d'une attaque
-	private static final int PERTE = 2;
-
+public class Joueur extends Objet implements Global {
 	// pseudo saisi
 	private String pseudo;
 	// numéro correspondant au personnage (avatar) pour le fichier correspondant
@@ -35,7 +29,10 @@ public class Joueur extends Objet {
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position,
 	 * affichage, création de la boule)
 	 */
-	public void initPerso() {
+	public void initPerso(String pseudo, int numPerso) {
+		this.pseudo = pseudo;
+		this.numPerso = numPerso;
+		System.out.println("joueur " + pseudo + " - num perso " + numPerso + " créé");
 	}
 
 	/**
@@ -65,7 +62,7 @@ public class Joueur extends Objet {
 
 	/**
 	 * Contrôle si le joueur touche un des autres joueurs
-	 * 
+	 *
 	 * @return true si deux joueurs se touchent
 	 */
 	private Boolean toucheJoueur() {
@@ -74,7 +71,7 @@ public class Joueur extends Objet {
 
 	/**
 	 * Contrôle si le joueur touche un des murs
-	 * 
+	 *
 	 * @return true si un joueur touche un mur
 	 */
 	private Boolean toucheMur() {
@@ -95,7 +92,7 @@ public class Joueur extends Objet {
 
 	/**
 	 * vrai si la vie est à 0
-	 * 
+	 *
 	 * @return true si vie = 0
 	 */
 	public Boolean estMort() {

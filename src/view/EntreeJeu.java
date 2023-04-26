@@ -1,7 +1,7 @@
 package view;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import control.Controle;
-
 
 public class EntreeJeu extends JFrame {
 	private Controle controle;
@@ -21,14 +20,14 @@ public class EntreeJeu extends JFrame {
 	 * Event sur le clic du bouton start
 	 */
 	private void btnStart_clic() {
-		controle.evenementEntreeJeu("serveur");
+		this.controle.evenementEntreeJeu("serveur");
 	}
 
 	/**
 	 * Event sur le clic du bouton connect
 	 */
 	private void btnConnect_clic() {
-		controle.evenementEntreeJeu(txtServerIp.getText());
+		this.controle.evenementEntreeJeu(this.txtServerIp.getText());
 	}
 
 	/**
@@ -48,25 +47,21 @@ public class EntreeJeu extends JFrame {
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblFond = new JLabel("");
-		lblFond.setBounds(0, 0, 46, 14);
-		contentPane.add(lblFond);
+		JLabel lblStartServer = new JLabel("Start a server :");
+		lblStartServer.setBounds(10, 11, 131, 14);
+		contentPane.add(lblStartServer);
 
-		JLabel lblNewLabel = new JLabel("Start a server :");
-		lblNewLabel.setBounds(10, 11, 131, 14);
-		contentPane.add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Connect to a server :");
-		lblNewLabel_1.setBounds(10, 39, 131, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblConnect = new JLabel("Connect to a server :");
+		lblConnect.setBounds(10, 39, 131, 14);
+		contentPane.add(lblConnect);
 
 		JButton btnStartServer = new JButton("Start");
-		btnStartServer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnStartServer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				btnStart_clic();
 			}
 		});
@@ -74,8 +69,9 @@ public class EntreeJeu extends JFrame {
 		contentPane.add(btnStartServer);
 
 		JButton btnConnect = new JButton("Connect");
-		btnConnect.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnConnect.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				btnConnect_clic();
 			}
 		});
@@ -83,8 +79,9 @@ public class EntreeJeu extends JFrame {
 		contentPane.add(btnConnect);
 
 		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				btnExit_clic();
 			}
 		});
@@ -96,7 +93,7 @@ public class EntreeJeu extends JFrame {
 		txtServerIp.setBounds(151, 36, 114, 20);
 		contentPane.add(txtServerIp);
 		txtServerIp.setColumns(10);
-		
+
 		this.controle = controle;
 	}
 }
