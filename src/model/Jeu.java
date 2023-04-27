@@ -6,19 +6,26 @@ import tools.connexion.Connection;
 /**
  * Informations et méthodes communes aux jeux client et serveur
  *
+ * @author JKerboeuf
  */
 public abstract class Jeu {
+	/**
+	 * Instance du controleur
+	 */
 	protected Controle controle;
 
 	/**
 	 * Réception d'une connexion (pour communiquer avec un ordinateur distant)
-	 * 
+	 *
 	 * @param connection objet connection pour la communication
 	 */
 	public abstract void connexion(Connection connection);
 
 	/**
 	 * Réception d'une information provenant de l'ordinateur distant
+	 *
+	 * @param connection la connection dont provient l'info à traiter
+	 * @param info l'info à traiter
 	 */
 	public abstract void reception(Connection connection, Object info);
 
@@ -29,6 +36,9 @@ public abstract class Jeu {
 
 	/**
 	 * Envoi d'une information vers un ordinateur distant
+	 *
+	 * @param connection
+	 * @param info
 	 */
 	public void envoi(Connection connection, Object info) {
 		this.controle.envoi(connection, info);

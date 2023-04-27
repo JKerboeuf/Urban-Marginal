@@ -16,11 +16,31 @@ import javax.swing.SwingConstants;
 import control.Controle;
 import control.Global;
 
+/**
+ * frame du choix de personnage
+ * 
+ * @author JKerboeuf
+ */
 public class ChoixJoueur extends JFrame implements Global {
+	/**
+	 * panel principal
+	 */
 	private JPanel contentPane;
+	/**
+	 * champ de saisie du pseudo du joueur
+	 */
 	private JTextField txtPseudo;
+	/**
+	 * label pour afficher le personnage
+	 */
 	private JLabel lblPerso;
+	/**
+	 * controleur
+	 */
 	private Controle controle;
+	/**
+	 * numero du joueur
+	 */
 	private int numPerso;
 
 	/**
@@ -59,22 +79,33 @@ public class ChoixJoueur extends JFrame implements Global {
 		}
 	}
 
+	/**
+	 * affiche le personnage
+	 */
 	private void affichePerso() {
 		String fileName = CHAR + this.numPerso + WALK + 1 + "d" + 1;
 		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
 		this.lblPerso.setIcon(new ImageIcon(resource));
 	}
 
+	/**
+	 * definie le curseur de la souris sur celui par défaut
+	 */
 	private void sourisNormale() {
 		contentPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
+	/**
+	 * definie le curseur de la souris sur celui de main pour cliquer
+	 */
 	private void sourisDoigt() {
 		contentPane.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	}
 
 	/**
-	 * Create the frame.
+	 * constructeur
+	 *
+	 * @param controle le controleur
 	 */
 	public ChoixJoueur(Controle controle) {
 		this.getContentPane().setPreferredSize(new Dimension(400, 275));

@@ -10,31 +10,59 @@ import javax.swing.SwingConstants;
 
 import control.Global;
 
-/*
+/**
  * Gestion des joueurs
+ *
+ * @author JKerboeuf
  */
 public class Joueur extends Objet implements Global {
-	// pseudo saisi
+	/**
+	 * pseudo saisi
+	 */
 	private String pseudo;
-	// numéro correspondant au personnage (avatar) pour le fichier correspondant
+	/**
+	 * numéro correspondant au personnage (avatar) pour le fichier correspondant
+	 */
 	private int numPerso;
-	// instance de JeuServeur pour communiquer avec lui
+	/**
+	 * instance de JeuServeur pour communiquer avec lui
+	 */
 	private JeuServeur jeuServeur;
-	// numéro d'étape dans l'animation (de la marche, touché ou mort)
+	/**
+	 * numéro d'étape dans l'animation (de la marche, touché ou mort)
+	 */
 	private int etape;
-	// la boule du joueur
+	/**
+	 * la boule du joueur
+	 */
 	private Boule boule;
-	// vie restante du joueur
+	/**
+	 * vie restante du joueur
+	 */
 	private int vie;
-	// tourné vers la gauche (0) ou vers la droite (1)
+	/**
+	 * tourné vers la gauche (0) ou vers la droite (1)
+	 */
 	private int orientation;
+	/**
+	 * le message sous le personnage incluant le pseudo et sa vie
+	 */
 	private JLabel message;
 
+	/**
+	 * getter sur le pseudo
+	 *
+	 * @return le pseudo du joueur
+	 */
 	public String getPseudo() {
 		return pseudo;
 	}
 
-	// Constructeur
+	/**
+	 * Constructeur
+	 *
+	 * @param jeuServeur l'instance du jeu serveur
+	 */
 	public Joueur(JeuServeur jeuServeur) {
 		this.jeuServeur = jeuServeur;
 		this.vie = HP_MAX;
@@ -45,6 +73,11 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position,
 	 * affichage, création de la boule)
+	 *
+	 * @param pseudo le pseudo du joueur
+	 * @param numPerso le numero du joueur
+	 * @param lesJoueurs la collection de joueurs pour y inclure ce nouveau la
+	 * @param lesMurs la collection de murs pour verifier qu'il ne spawn pas dans un mur
 	 */
 	public void initPerso(String pseudo, int numPerso, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
 		this.pseudo = pseudo;
@@ -63,6 +96,9 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Calcul de la première position aléatoire du joueur (sans chevaucher un autre
 	 * joueur ou un mur)
+	 *
+	 * @param lesJoueurs collection de joueurs pour verifier le bon spawn
+	 * @param lesMurs collection de murs pour verifier le bon spawn
 	 */
 	private void premierePosition(Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
 		label.setBounds(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
@@ -74,6 +110,9 @@ public class Joueur extends Objet implements Global {
 
 	/**
 	 * Affiche le personnage et son message
+	 *
+	 * @param etat etat du personnage
+	 * @param etape etape de l'etat du personnage
 	 */
 	public void affiche(String etat, int etape) {
 		super.label.setBounds(posX, posY, CHAR_WIDTH, CHAR_HEIGHT);
@@ -100,6 +139,7 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Contrôle si le joueur touche un des autres joueurs
 	 *
+	 * @param lesJoueurs les joueurs a tester la position
 	 * @return true si deux joueurs se touchent
 	 */
 	private Boolean toucheJoueur(Collection<Joueur> lesJoueurs) {
@@ -114,8 +154,9 @@ public class Joueur extends Objet implements Global {
 	}
 
 	/**
-	 * Contrôle si le joueur touche un des murs
+	 * * Contrôle si le joueur touche un des murs
 	 *
+	 * @param lesMurs les murs a tester la position
 	 * @return true si un joueur touche un mur
 	 */
 	private Boolean toucheMur(ArrayList<Mur> lesMurs) {

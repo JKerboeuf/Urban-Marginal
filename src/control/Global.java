@@ -1,5 +1,10 @@
 package control;
 
+/**
+ * Interface contenant les globales utiles pour toutes les classes
+ *
+ * @author JKerboeuf
+ */
 public interface Global {
 	String PATH_SEPARATOR = "/";
 	String BG_PATH = "fonds" + PATH_SEPARATOR;

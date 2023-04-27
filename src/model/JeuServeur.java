@@ -11,30 +11,43 @@ import tools.connexion.Connection;
 /**
  * Gestion du jeu côté serveur
  *
+ * @author JKerboeuf
  */
 public class JeuServeur extends Jeu implements Global {
-
 	/**
-	 * Collection de murs
+	 * Collection des murs
 	 */
 	private ArrayList<Mur> lesMurs = new ArrayList<Mur>();
 	/**
-	 * Collection de joueurs
+	 * Dictionnaire des joueurs
 	 */
 	private Hashtable<Connection, Joueur> lesJoueurs = new Hashtable<Connection, Joueur>();
 
 	/**
 	 * Constructeur
+	 *
+	 * @param controle le controleur
 	 */
 	public JeuServeur(Controle controle) {
 		super.controle = controle;
 	}
 
+	/**
+	 * Méthode qui connecte un client au serveur
+	 *
+	 * @param connection l'instance de la connection a lier
+	 */
 	@Override
 	public void connexion(Connection connection) {
 		this.lesJoueurs.put(connection, new Joueur(this));
 	}
 
+	/**
+	 * Méthode qui gère la reception de données
+	 *
+	 * @param connection la connection dont vient l'information à traiter
+	 * @param info l'information à traiter
+	 */
 	@Override
 	public void reception(Connection connection, Object info) {
 		String[] infos = ((String) info).split(STR_SEPARATOR);
@@ -56,6 +69,9 @@ public class JeuServeur extends Jeu implements Global {
 		}
 	}
 
+	/**
+	 * Méthode qui gère les déconnexions
+	 */
 	@Override
 	public void deconnexion() {
 	}
@@ -63,6 +79,8 @@ public class JeuServeur extends Jeu implements Global {
 	/**
 	 * Envoi d'une information vers tous les clients fais appel plusieurs fois à
 	 * l'envoi de la classe Jeu
+	 *
+	 * @param info l'information à traiter
 	 */
 	public void envoi(Object info) {
 		for (Connection connection : this.lesJoueurs.keySet()) {
@@ -70,6 +88,9 @@ public class JeuServeur extends Jeu implements Global {
 		}
 	}
 
+	/**
+	 * Méthode qui envoi le panel du jeu a tous les joueurs
+	 */
 	public void envoiJeuATous() {
 		for (Connection connection : this.lesJoueurs.keySet()) {
 			this.controle.evenementJeuServeur(AJOUT_PANEL_JEU, connection);
@@ -87,6 +108,11 @@ public class JeuServeur extends Jeu implements Global {
 		}
 	}
 
+	/**
+	 * Ajout du panel de jeu
+	 *
+	 * @param label le label à ajouter
+	 */
 	public void ajoutLabelJeuArene(JLabel label) {
 		this.controle.evenementJeuServeur(AJOUT_LABEL_JEU, label);
 	}

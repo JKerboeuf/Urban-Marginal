@@ -1,11 +1,11 @@
 package model;
 
 /**
- * Gestion de la boule
+ * Classe de la boule
  *
+ * @author JKerboeuf
  */
 public class Boule extends Objet {
-
 	/**
 	 * instance de JeuServeur pour la communication
 	 */
@@ -22,5 +22,4 @@ public class Boule extends Objet {
 	 */
 	public void tireBoule() {
 	}
-
 }

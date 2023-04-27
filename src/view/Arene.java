@@ -15,58 +15,135 @@ import javax.swing.JTextField;
 import control.Controle;
 import control.Global;
 
+/**
+ * frame de l'arene de jeu
+ * 
+ * @author JKerboeuf
+ */
 public class Arene extends JFrame implements Global {
+	/**
+	 * panel principal
+	 */
 	private JPanel contentPane;
+	/**
+	 * panel des murs
+	 */
 	private JPanel jpnMurs;
+	/**
+	 * panel du jeu, contient les joueurs et les boules
+	 */
 	private JPanel jpnJeu;
+	/**
+	 * champ de saisie du chat
+	 */
 	private JTextField txtInput;
+	/**
+	 * champ de texte du chat
+	 */
 	private JTextArea txtChat;
+	/**
+	 * controleur
+	 */
 	private Controle controle;
+	/**
+	 * booleen pour savoir si le chat doit etre affiché ou pas
+	 */
 	private boolean client;
 
+	/**
+	 * getter du chat
+	 *
+	 * @return le texte entier du chat
+	 */
 	public String getTxtChat() {
 		return txtChat.getText();
 	}
 
+	/**
+	 * setter du chat
+	 *
+	 * @param text le text pour remplacer le chat
+	 */
 	public void setTxtChat(String text) {
 		this.txtChat.setText(text);
 		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
 	}
 
+	/**
+	 * getter du panel des murs
+	 *
+	 * @return le panel des murs
+	 */
 	public JPanel getJpnMurs() {
 		return jpnMurs;
 	}
 
+	/**
+	 * setter du panel des murs
+	 *
+	 * @param jpnMurs le panel des murs à set
+	 */
 	public void setJpnMurs(JPanel jpnMurs) {
 		this.jpnMurs.add(jpnMurs);
 		this.jpnMurs.repaint();
 	}
 
+	/**
+	 * getter du panel de jeu
+	 *
+	 * @return le panel du jeu
+	 */
 	public JPanel getJpnJeu() {
 		return jpnJeu;
 	}
 
+	/**
+	 * setter du panel de jeu
+	 *
+	 * @param jpnJeu le panel de jeu à remplacer
+	 */
 	public void setJpnJeu(JPanel jpnJeu) {
 		this.jpnJeu.removeAll();
 		this.jpnJeu.add(jpnJeu);
 		this.jpnJeu.repaint();
 	}
 
+	/**
+	 * ajoute les murs
+	 *
+	 * @param unMur mur à ajouter
+	 */
 	public void ajoutMurs(Object unMur) {
 		jpnMurs.add((JLabel) unMur);
 		jpnMurs.repaint();
 	}
 
+	/**
+	 * ajoute un label de jeu
+	 *
+	 * @param label le label à ajouter
+	 */
 	public void ajoutLabelJeu(JLabel label) {
 		this.jpnJeu.add(label);
 		this.jpnJeu.repaint();
 	}
 
+	/**
+	 * ajoute une ligne de texte au chat
+	 *
+	 * @param line ligne de texte à ajouter
+	 */
 	public void ajoutTchat(String line) {
 		txtChat.setText(txtChat.getText() + line + "\r\n");
 		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
 	}
 
+	/**
+	 * évenement de touche de clavier
+	 * vérifie la touche pour envoyer du texte au chat
+	 *
+	 * @param e evenement clavier
+	 */
 	public void txtInput_KeyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (!this.txtInput.getText().equals("")) {
@@ -76,7 +153,12 @@ public class Arene extends JFrame implements Global {
 		}
 	}
 
-	// Create the frame.
+	/**
+	 * constructeur
+	 *
+	 * @param controle le controleur
+	 * @param typeJeu le type de jeu (client / serveur)
+	 */
 	public Arene(Controle controle, String typeJeu) {
 		this.client = typeJeu.equals(CLIENT);
 		this.getContentPane().setPreferredSize(new Dimension(ARENA_WIDTH, ARENA_HEIGHT + 200));

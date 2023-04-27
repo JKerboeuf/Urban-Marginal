@@ -9,6 +9,7 @@ import control.Global;
 /**
  * Gestion des murs
  *
+ * @author JKerboeuf
  */
 public class Mur extends Objet implements Global {
 	/**

@@ -7,16 +7,33 @@ import model.*;
 import tools.connexion.*;
 import view.*;
 
+/**
+ * Classe du controleur de l'application
+ *
+ * @author JKerboeuf
+ */
 public class Controle implements AsyncResponse, Global {
+	/**
+	 * frame EntreeJeu
+	 */
 	private EntreeJeu frmEntreeJeu;
+	/**
+	 * frame Arene
+	 */
 	private Arene frmArene;
+	/**
+	 * frame ChoixJoueur
+	 */
 	private ChoixJoueur frmChoixJoueur;
+	/**
+	 * Instance du jeu avec son type (serveur ou client)
+	 */
 	private Jeu leJeu;
 
 	/**
-	 * Methode de demarrage
+	 * Méthode de demarrage
 	 *
-	 * @param args non utilise
+	 * @param args non utilisé
 	 */
 	public static void main(String[] args) {
 		new Controle();
@@ -30,6 +47,11 @@ public class Controle implements AsyncResponse, Global {
 		this.frmEntreeJeu.setVisible(true);
 	}
 
+	/**
+	 * Méthode qui gère les évenements de l'entrée du jeu
+	 *
+	 * @param info l'info à traiter
+	 */
 	public void evenementEntreeJeu(String info) {
 		if (info.equals(SERVER)) {
 			new ServeurSocket(this, PORT);
@@ -43,12 +65,24 @@ public class Controle implements AsyncResponse, Global {
 		}
 	}
 
+	/**
+	 * Méthode qui gère les évenement du choix du joueur
+	 *
+	 * @param pseudo   pseudo du joueur qui vient d'etre créé
+	 * @param numPerso numero du personnage créé
+	 */
 	public void evenementChoixJoueur(String pseudo, int numPerso) {
 		this.frmChoixJoueur.dispose();
 		this.frmArene.setVisible(true);
 		((JeuClient) this.leJeu).envoi(PSEUDO + STR_SEPARATOR + pseudo + STR_SEPARATOR + numPerso);
 	}
 
+	/**
+	 * Méthode qui gère les évenements du jeu du serveur
+	 *
+	 * @param ordre l'ordre à prendre en charge
+	 * @param info  l'info à traiter
+	 */
 	public void evenementJeuServeur(String ordre, Object info) {
 		switch (ordre) {
 			case AJOUT_MUR:
@@ -70,6 +104,12 @@ public class Controle implements AsyncResponse, Global {
 		}
 	}
 
+	/**
+	 * Méthode qui gère les évenements du jeu des clients
+	 *
+	 * @param ordre l'ordre à prendre en charge
+	 * @param info  l'info à traiter
+	 */
 	public void evenementJeuClient(String ordre, Object info) {
 		switch (ordre) {
 			case AJOUT_PANEL_MURS:
@@ -84,14 +124,32 @@ public class Controle implements AsyncResponse, Global {
 		}
 	}
 
+	/**
+	 * Méthode qui gère les évenements de l'arène
+	 *
+	 * @param info l'info à envoyer
+	 */
 	public void evenementArene(String info) {
 		((JeuClient) this.leJeu).envoi(CHAT + STR_SEPARATOR + info);
 	}
 
+	/**
+	 * Méthode pour l'envoi d'information
+	 *
+	 * @param connection la connection sur laquelle envoyer l'info
+	 * @param info       l'info à envoyer
+	 */
 	public void envoi(Connection connection, Object info) {
 		connection.envoi(info);
 	}
 
+	/**
+	 * Méthode qui gère la réception d'informations
+	 *
+	 * @param connection la connection de laquelle l'information provient
+	 * @param ordre      l'ordre à prendre en charge
+	 * @param info       l'info à traiter
+	 */
 	@Override
 	public void reception(Connection connection, String ordre, Object info) {
 		switch (ordre) {

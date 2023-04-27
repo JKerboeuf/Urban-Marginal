@@ -10,9 +10,23 @@ import javax.swing.JTextField;
 
 import control.Controle;
 
+/**
+ * frame de connexion au jeu
+ * 
+ * @author JKerboeuf
+ */
 public class EntreeJeu extends JFrame {
+	/**
+	 * panel principal
+	 */
 	private JPanel contentPane;
+	/**
+	 * champ de saisie de l'ip du serveur auquel on souhaite se connecter
+	 */
 	private JTextField txtServerIp;
+	/**
+	 * controleur
+	 */
 	private Controle controle;
 
 	/**
@@ -37,7 +51,9 @@ public class EntreeJeu extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * constructeur
+	 *
+	 * @param controle le controleur
 	 */
 	public EntreeJeu(Controle controle) {
 		setTitle("Urban Marginal");
