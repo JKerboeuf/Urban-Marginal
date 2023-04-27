@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -21,6 +22,7 @@ public class Arene extends JFrame implements Global {
 	private JTextField txtInput;
 	private JTextArea txtChat;
 	private Controle controle;
+	private boolean client;
 
 	public String getTxtChat() {
 		return txtChat.getText();
@@ -28,6 +30,7 @@ public class Arene extends JFrame implements Global {
 
 	public void setTxtChat(String text) {
 		this.txtChat.setText(text);
+		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
 	}
 
 	public JPanel getJpnMurs() {
@@ -61,17 +64,21 @@ public class Arene extends JFrame implements Global {
 
 	public void ajoutTchat(String line) {
 		txtChat.setText(txtChat.getText() + line + "\r\n");
+		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
 	}
 
-	public void txtSaisie_KeyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ENTER && !this.txtInput.getText().equals("")) {
-			this.controle.evenementArene(this.txtInput.getText());
-			this.txtInput.setText("");
+	public void txtInput_KeyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (!this.txtInput.getText().equals("")) {
+				this.controle.evenementArene(this.txtInput.getText());
+				this.txtInput.setText("");
+			}
 		}
 	}
 
 	// Create the frame.
-	public Arene(Controle controle) {
+	public Arene(Controle controle, String typeJeu) {
+		this.client = typeJeu.equals(CLIENT);
 		this.getContentPane().setPreferredSize(new Dimension(ARENA_WIDTH, ARENA_HEIGHT + 200));
 		this.pack();
 		this.setResizable(false);
@@ -94,10 +101,18 @@ public class Arene extends JFrame implements Global {
 		jpnMurs.setLayout(null);
 		contentPane.add(jpnMurs);
 
-		txtInput = new JTextField();
-		txtInput.setBounds(0, 600, 800, 30);
-		contentPane.add(txtInput);
-		txtInput.setColumns(10);
+		if (this.client) {
+			txtInput = new JTextField();
+			txtInput.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					txtInput_KeyPressed(e);
+				}
+			});
+			txtInput.setBounds(0, 600, 800, 30);
+			contentPane.add(txtInput);
+			txtInput.setColumns(10);
+		}
 
 		JScrollPane jspChat = new JScrollPane();
 		jspChat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -105,6 +120,7 @@ public class Arene extends JFrame implements Global {
 		contentPane.add(jspChat);
 
 		txtChat = new JTextArea();
+		txtChat.setEditable(false);
 		jspChat.setViewportView(txtChat);
 
 		JLabel lblFond = new JLabel("");

@@ -30,6 +30,10 @@ public class Joueur extends Objet implements Global {
 	private int orientation;
 	private JLabel message;
 
+	public String getPseudo() {
+		return pseudo;
+	}
+
 	// Constructeur
 	public Joueur(JeuServeur jeuServeur) {
 		this.jeuServeur = jeuServeur;
@@ -75,7 +79,7 @@ public class Joueur extends Objet implements Global {
 		super.label.setBounds(posX, posY, CHAR_WIDTH, CHAR_HEIGHT);
 		String fileName = CHAR + this.numPerso + etat + etape + "d" + orientation;
 		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
-		label.setIcon(new ImageIcon(resource));
+		super.label.setIcon(new ImageIcon(resource));
 		this.message.setBounds(posX - 10, posY + CHAR_HEIGHT, CHAR_WIDTH + 10, CHAR_TITLE_HEIGHT);
 		this.message.setText(pseudo + " : " + vie);
 		this.jeuServeur.envoiJeuATous();

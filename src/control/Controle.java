@@ -35,7 +35,7 @@ public class Controle implements AsyncResponse, Global {
 			new ServeurSocket(this, PORT);
 			this.leJeu = new JeuServeur(this);
 			this.frmEntreeJeu.dispose();
-			this.frmArene = new Arene(this);
+			this.frmArene = new Arene(this, SERVER);
 			((JeuServeur) this.leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		} else {
@@ -55,13 +55,17 @@ public class Controle implements AsyncResponse, Global {
 				frmArene.ajoutMurs(info);
 				break;
 			case AJOUT_PANEL_MURS:
-				this.leJeu.envoi((Connection) info, frmArene.getJpnMurs());
+				this.leJeu.envoi((Connection) info, this.frmArene.getJpnMurs());
 				break;
 			case AJOUT_LABEL_JEU:
 				this.frmArene.ajoutLabelJeu((JLabel) info);
 				break;
 			case AJOUT_PANEL_JEU:
 				this.leJeu.envoi((Connection) info, this.frmArene.getJpnJeu());
+				break;
+			case AJOUT_CHAT:
+				this.frmArene.ajoutTchat((String) info);
+				((JeuServeur) this.leJeu).envoi(this.frmArene.getTxtChat());
 				break;
 		}
 	}
@@ -74,11 +78,14 @@ public class Controle implements AsyncResponse, Global {
 			case AJOUT_PANEL_JEU:
 				this.frmArene.setJpnJeu((JPanel) info);
 				break;
+			case MODIF_CHAT:
+				this.frmArene.setTxtChat((String) info);
+				break;
 		}
 	}
 
-	public void evenementArene(String text) {
-		((JeuClient) this.leJeu).envoi(CHAT + STR_SEPARATOR + text);
+	public void evenementArene(String info) {
+		((JeuClient) this.leJeu).envoi(CHAT + STR_SEPARATOR + info);
 	}
 
 	public void envoi(Connection connection, Object info) {
@@ -93,7 +100,7 @@ public class Controle implements AsyncResponse, Global {
 					this.leJeu = new JeuClient(this);
 					this.leJeu.connexion(connection);
 					this.frmEntreeJeu.dispose();
-					this.frmArene = new Arene(this);
+					this.frmArene = new Arene(this, CLIENT);
 					this.frmChoixJoueur = new ChoixJoueur(this);
 					this.frmChoixJoueur.setVisible(true);
 				} else {

@@ -22,11 +22,15 @@ public interface Global {
 	String DECONNEXION = "déconnexion";
 	String PSEUDO = "pseudo";
 	String SERVER = "serveur";
+	String CLIENT = "client";
 	String CHAT = "chat";
+	String CHAT_SEPARATOR = " > ";
 	String AJOUT_MUR = "ajout mur";
 	String AJOUT_PANEL_MURS = "ajout panel murs";
 	String AJOUT_LABEL_JEU = "ajout label jeu";
 	String AJOUT_PANEL_JEU = "ajout panel jeu";
+	String AJOUT_CHAT = "ajout chat";
+	String MODIF_CHAT = "modif chat";
 	int PORT = 6666;
 	int CHAR_MAX = 3;
 	int CHAR_WIDTH = 40;
