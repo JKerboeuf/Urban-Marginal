@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,10 +75,11 @@ public class Joueur extends Objet implements Global {
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position,
 	 * affichage, création de la boule)
 	 *
-	 * @param pseudo le pseudo du joueur
-	 * @param numPerso le numero du joueur
+	 * @param pseudo     le pseudo du joueur
+	 * @param numPerso   le numero du joueur
 	 * @param lesJoueurs la collection de joueurs pour y inclure ce nouveau la
-	 * @param lesMurs la collection de murs pour verifier qu'il ne spawn pas dans un mur
+	 * @param lesMurs    la collection de murs pour verifier qu'il ne spawn pas dans
+	 *                   un mur
 	 */
 	public void initPerso(String pseudo, int numPerso, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
 		this.pseudo = pseudo;
@@ -98,7 +100,7 @@ public class Joueur extends Objet implements Global {
 	 * joueur ou un mur)
 	 *
 	 * @param lesJoueurs collection de joueurs pour verifier le bon spawn
-	 * @param lesMurs collection de murs pour verifier le bon spawn
+	 * @param lesMurs    collection de murs pour verifier le bon spawn
 	 */
 	private void premierePosition(Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
 		label.setBounds(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
@@ -111,7 +113,7 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Affiche le personnage et son message
 	 *
-	 * @param etat etat du personnage
+	 * @param etat  etat du personnage
 	 * @param etape etape de l'etat du personnage
 	 */
 	public void affiche(String etat, int etape) {
@@ -126,14 +128,76 @@ public class Joueur extends Objet implements Global {
 
 	/**
 	 * Gère une action reçue et qu'il faut afficher (déplacement, tire de boule...)
+	 *
+	 * @param action     action de mouvement
+	 * @param lesJoueurs collection des joueurs pour tester les collisions
+	 * @param lesMurs    collection des murs pour tester les collisions
 	 */
-	public void action() {
+	public void action(int action, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+		switch (action) {
+			case KeyEvent.VK_LEFT:
+				orientation = GAUCHE;
+				this.posX -= deplace(GAUCHE, lesJoueurs, lesMurs);
+				break;
+			case KeyEvent.VK_RIGHT:
+				orientation = DROITE;
+				this.posX += deplace(DROITE, lesJoueurs, lesMurs);
+				break;
+			case KeyEvent.VK_UP:
+				this.posY -= deplace(HAUT, lesJoueurs, lesMurs);
+				break;
+			case KeyEvent.VK_DOWN:
+				this.posY += deplace(BAS, lesJoueurs, lesMurs);
+				break;
+		}
+		affiche(WALK, this.etape);
 	}
 
 	/**
 	 * Gère le déplacement du personnage
+	 *
+	 * @param sens le sens du déplacement
+	 * @param joueurs les joueurs pour tester les collisions
+	 * @param murs les murs pour tester les collisions
+	 * @return 0 ou STEP_SIZE pour incrementer la position du personnage
 	 */
-	private void deplace() {
+	private int deplace(int sens, Collection<Joueur> joueurs, ArrayList<Mur> murs) {
+		boolean collision = false;
+		switch (sens) {
+			case GAUCHE:
+				if (toucheJoueur(this.posX - STEP_SIZE, this.posY, joueurs) ||
+					toucheMur(this.posX - STEP_SIZE, this.posY, murs) ||
+					posX - STEP_SIZE < 0) {
+					collision = true;
+				}
+				break;
+			case DROITE:
+				if (toucheJoueur(this.posX + STEP_SIZE, this.posY, joueurs) ||
+					toucheMur(this.posX + STEP_SIZE, this.posY, murs) ||
+					posX + CHAR_WIDTH + STEP_SIZE > ARENA_WIDTH) {
+					collision = true;
+				}
+				break;
+			case HAUT:
+				if (toucheJoueur(this.posX, this.posY - STEP_SIZE, joueurs) ||
+					toucheMur(this.posX, this.posY - STEP_SIZE, murs) ||
+					posY - STEP_SIZE < 0) {
+					collision = true;
+				}
+				break;
+			case BAS:
+				if (toucheJoueur(this.posX, this.posY + STEP_SIZE, joueurs) ||
+					toucheMur(this.posX, this.posY + STEP_SIZE, murs) ||
+					posY + CHAR_HEIGHT + STEP_SIZE > ARENA_HEIGHT) {
+					collision = true;
+				}
+				break;
+		}
+		etape = (etape % 4) + 1;
+		if (!collision) {
+			return STEP_SIZE;
+		}
+		return 0;
 	}
 
 	/**
@@ -154,6 +218,25 @@ public class Joueur extends Objet implements Global {
 	}
 
 	/**
+	 * Contrôle si le joueur touche un des autres joueurs
+	 *
+	 * @param testX      position X à tester
+	 * @param testY      position Y à tester
+	 * @param lesJoueurs les joueurs a tester la position
+	 * @return true si deux joueurs se touchent
+	 */
+	private Boolean toucheJoueur(int testX, int testY, Collection<Joueur> lesJoueurs) {
+		for (Joueur unJoueur : lesJoueurs) {
+			if (!this.equals(unJoueur)) {
+				if (super.toucheObjet(testX, testY, unJoueur)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * * Contrôle si le joueur touche un des murs
 	 *
 	 * @param lesMurs les murs a tester la position
@@ -162,6 +245,23 @@ public class Joueur extends Objet implements Global {
 	private Boolean toucheMur(ArrayList<Mur> lesMurs) {
 		for (Mur unMur : lesMurs) {
 			if (super.toucheObjet(unMur)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * * Contrôle si le joueur touche un des murs
+	 *
+	 * @param testX   position X à tester
+	 * @param testY   position Y à tester
+	 * @param lesMurs les murs a tester la position
+	 * @return true si un joueur touche un mur
+	 */
+	private Boolean toucheMur(int testX, int testY, ArrayList<Mur> lesMurs) {
+		for (Mur unMur : lesMurs) {
+			if (super.toucheObjet(testX, testY, unMur)) {
 				return true;
 			}
 		}

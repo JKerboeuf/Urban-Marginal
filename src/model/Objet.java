@@ -34,6 +34,25 @@ public abstract class Objet {
 	/**
 	 * contrôle si l'objet actuel touche l'objet passé en paramètre
 	 *
+	 * @param testX position X à tester
+	 * @param testY position Y à tester
+	 * @param objet contient l'objet à contrôler
+	 * @return true si les 2 objets se touchent
+	 */
+	public Boolean toucheObjet(int testX, int testY, Objet objet) {
+		if (objet.label == null || objet.label == null) {
+			return false;
+		} else {
+			return (testX + this.label.getWidth() > objet.posX &&
+					testX < objet.posX + objet.label.getWidth() &&
+					testY + this.label.getHeight() > objet.posY &&
+					testY < objet.posY + objet.label.getHeight());
+		}
+	}
+
+	/**
+	 * contrôle si l'objet actuel touche l'objet passé en paramètre
+	 *
 	 * @param objet contient l'objet à contrôler
 	 * @return true si les 2 objets se touchent
 	 */

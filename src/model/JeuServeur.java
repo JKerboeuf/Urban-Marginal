@@ -66,6 +66,10 @@ public class JeuServeur extends Jeu implements Global {
 				line = this.lesJoueurs.get(connection).getPseudo() + CHAT_SEPARATOR + line;
 				this.controle.evenementJeuServeur(AJOUT_CHAT, line);
 				break;
+			case ACTION:
+				Integer action = Integer.parseInt(infos[1]);
+				this.lesJoueurs.get(connection).action(action, this.lesJoueurs.values(), this.lesMurs);
+				break;
 		}
 	}
 

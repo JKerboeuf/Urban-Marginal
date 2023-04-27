@@ -36,6 +36,7 @@ public interface Global {
 	String AJOUT_PANEL_JEU = "ajout panel jeu";
 	String AJOUT_CHAT = "ajout chat";
 	String MODIF_CHAT = "modif chat";
+	String ACTION = "action";
 	int PORT = 6666;
 	int CHAR_MAX = 3;
 	int CHAR_WIDTH = 40;
@@ -43,6 +44,8 @@ public interface Global {
 	int CHAR_TITLE_HEIGHT = 8;
 	int GAUCHE = 0;
 	int DROITE = 1;
+	int HAUT = 2;
+	int BAS = 3;
 	int ARENA_WIDTH = 800;
 	int ARENA_HEIGHT = 600;
 	int WALLS_MAX = 20;
@@ -50,4 +53,5 @@ public interface Global {
 	int HP_MAX = 10;
 	int GAIN = 1;
 	int PERTE = 2;
+	int STEP_SIZE = 10;
 }

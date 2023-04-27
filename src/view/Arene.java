@@ -106,6 +106,7 @@ public class Arene extends JFrame implements Global {
 		this.jpnJeu.removeAll();
 		this.jpnJeu.add(jpnJeu);
 		this.jpnJeu.repaint();
+		contentPane.requestFocus();
 	}
 
 	/**
@@ -149,15 +150,35 @@ public class Arene extends JFrame implements Global {
 			if (!this.txtInput.getText().equals("")) {
 				this.controle.evenementArene(this.txtInput.getText());
 				this.txtInput.setText("");
+				contentPane.requestFocus();
 			}
 		}
+	}
+
+	/**
+	 * évenement de touche de clavier
+	 * vérifie les fleches pour faire bouger le personnag
+	 *
+	 * @param e evenement clavier
+	 */
+	public void contentPane_KeyPressed(KeyEvent e) {
+		int key = -1;
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_UP:
+			case KeyEvent.VK_DOWN:
+				key = e.getKeyCode();
+				break;
+		}
+		this.controle.evenementArene(key);
 	}
 
 	/**
 	 * constructeur
 	 *
 	 * @param controle le controleur
-	 * @param typeJeu le type de jeu (client / serveur)
+	 * @param typeJeu  le type de jeu (client / serveur)
 	 */
 	public Arene(Controle controle, String typeJeu) {
 		this.client = typeJeu.equals(CLIENT);
@@ -183,19 +204,6 @@ public class Arene extends JFrame implements Global {
 		jpnMurs.setLayout(null);
 		contentPane.add(jpnMurs);
 
-		if (this.client) {
-			txtInput = new JTextField();
-			txtInput.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent e) {
-					txtInput_KeyPressed(e);
-				}
-			});
-			txtInput.setBounds(0, 600, 800, 30);
-			contentPane.add(txtInput);
-			txtInput.setColumns(10);
-		}
-
 		JScrollPane jspChat = new JScrollPane();
 		jspChat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		jspChat.setBounds(0, 630, 800, 170);
@@ -210,6 +218,33 @@ public class Arene extends JFrame implements Global {
 		lblFond.setIcon(new ImageIcon(resource));
 		lblFond.setBounds(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
 		contentPane.add(lblFond);
+
+		if (this.client) {
+			contentPane.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					contentPane_KeyPressed(e);
+				}
+			});
+
+			txtChat.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					contentPane_KeyPressed(e);
+				}
+			});
+
+			txtInput = new JTextField();
+			txtInput.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					txtInput_KeyPressed(e);
+				}
+			});
+			txtInput.setBounds(0, 600, 800, 30);
+			contentPane.add(txtInput);
+			txtInput.setColumns(10);
+		}
 
 		this.controle = controle;
 	}

@@ -129,8 +129,12 @@ public class Controle implements AsyncResponse, Global {
 	 *
 	 * @param info l'info à envoyer
 	 */
-	public void evenementArene(String info) {
-		((JeuClient) this.leJeu).envoi(CHAT + STR_SEPARATOR + info);
+	public void evenementArene(Object info) {
+		if (info instanceof String) {
+			((JeuClient) this.leJeu).envoi(CHAT + STR_SEPARATOR + info);
+		} else if (info instanceof Integer) {
+			((JeuClient) this.leJeu).envoi(ACTION + STR_SEPARATOR + info);
+		}
 	}
 
 	/**
