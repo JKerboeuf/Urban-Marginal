@@ -37,8 +37,8 @@ public abstract class Jeu {
 	/**
 	 * Envoi d'une information vers un ordinateur distant
 	 *
-	 * @param connection
-	 * @param info
+	 * @param connection la connection de laquelle provient l'information
+	 * @param info l'information à envoyer
 	 */
 	public void envoi(Connection connection, Object info) {
 		this.controle.envoi(connection, info);
