@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import javax.swing.JLabel;
 
 import control.Controle;
 import control.Global;
@@ -31,7 +32,7 @@ public class JeuServeur extends Jeu implements Global {
 
 	@Override
 	public void connexion(Connection connection) {
-		this.lesJoueurs.put(connection, new Joueur());
+		this.lesJoueurs.put(connection, new Joueur(this));
 	}
 
 	@Override
@@ -40,10 +41,10 @@ public class JeuServeur extends Jeu implements Global {
 		String ordre = infos[0];
 		switch (ordre) {
 			case PSEUDO:
-				controle.evenementJeuServeur(AJOUTPANELMURS, connection);
+				controle.evenementJeuServeur(AJOUT_PANEL_MURS, connection);
 				String pseudo = infos[1];
 				int numPerso = Integer.parseInt(infos[2]);
-				this.lesJoueurs.get(connection).initPerso(pseudo, numPerso);
+				this.lesJoueurs.get(connection).initPerso(pseudo, numPerso, this.lesJoueurs.values(), this.lesMurs);
 				break;
 		}
 	}
@@ -59,6 +60,12 @@ public class JeuServeur extends Jeu implements Global {
 	public void envoi() {
 	}
 
+	public void envoiJeuATous() {
+		for (Connection connection : this.lesJoueurs.keySet()) {
+			this.controle.evenementJeuServeur(AJOUT_PANEL_JEU, connection);
+		}
+	}
+
 	/**
 	 * Génération des murs
 	 */
@@ -66,8 +73,11 @@ public class JeuServeur extends Jeu implements Global {
 		for (int i = 0; i < WALLS_MAX; i++) {
 			Mur newMur = new Mur();
 			this.lesMurs.add(newMur);
-			this.controle.evenementJeuServeur("ajout mur", newMur.getLabel());
+			this.controle.evenementJeuServeur(AJOUT_MUR, newMur.getLabel());
 		}
 	}
 
+	public void ajoutLabelJeuArene(JLabel label) {
+		this.controle.evenementJeuServeur(AJOUT_LABEL_JEU, label);
+	}
 }

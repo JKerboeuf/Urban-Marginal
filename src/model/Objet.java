@@ -29,7 +29,13 @@ public abstract class Objet {
 	 * @return true si les 2 objets se touchent
 	 */
 	public Boolean toucheObjet(Objet objet) {
-		return null;
+		if (objet.label == null || objet.label == null) {
+			return false;
+		} else {
+			return (this.posX + this.label.getWidth() > objet.posX &&
+					this.posX < objet.posX + objet.label.getWidth() &&
+					this.posY + this.label.getHeight() > objet.posY &&
+					this.posY < objet.posY + objet.label.getHeight());
+		}
 	}
-
 }

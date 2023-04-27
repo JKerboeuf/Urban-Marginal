@@ -2,18 +2,18 @@ package view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import control.Controle;
 
 public class EntreeJeu extends JFrame {
-	private Controle controle;
 	private JPanel contentPane;
 	private JTextField txtServerIp;
+	private Controle controle;
 
 	/**
 	 * Event sur le clic du bouton start

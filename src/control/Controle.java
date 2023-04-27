@@ -1,5 +1,6 @@
 package control;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.*;
@@ -34,7 +35,7 @@ public class Controle implements AsyncResponse, Global {
 			new ServeurSocket(this, PORT);
 			this.leJeu = new JeuServeur(this);
 			this.frmEntreeJeu.dispose();
-			this.frmArene = new Arene();
+			this.frmArene = new Arene(this);
 			((JeuServeur) this.leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		} else {
@@ -50,21 +51,34 @@ public class Controle implements AsyncResponse, Global {
 
 	public void evenementJeuServeur(String ordre, Object info) {
 		switch (ordre) {
-			case AJOUTMUR:
-				frmArene.AjoutMurs(info);
+			case AJOUT_MUR:
+				frmArene.ajoutMurs(info);
 				break;
-			case AJOUTPANELMURS:
+			case AJOUT_PANEL_MURS:
 				this.leJeu.envoi((Connection) info, frmArene.getJpnMurs());
+				break;
+			case AJOUT_LABEL_JEU:
+				this.frmArene.ajoutLabelJeu((JLabel) info);
+				break;
+			case AJOUT_PANEL_JEU:
+				this.leJeu.envoi((Connection) info, this.frmArene.getJpnJeu());
 				break;
 		}
 	}
 
 	public void evenementJeuClient(String ordre, Object info) {
 		switch (ordre) {
-			case AJOUTPANELMURS:
+			case AJOUT_PANEL_MURS:
 				this.frmArene.setJpnMurs((JPanel) info);
 				break;
+			case AJOUT_PANEL_JEU:
+				this.frmArene.setJpnJeu((JPanel) info);
+				break;
 		}
+	}
+
+	public void evenementArene(String text) {
+		((JeuClient) this.leJeu).envoi(CHAT + STR_SEPARATOR + text);
 	}
 
 	public void envoi(Connection connection, Object info) {
@@ -79,7 +93,7 @@ public class Controle implements AsyncResponse, Global {
 					this.leJeu = new JeuClient(this);
 					this.leJeu.connexion(connection);
 					this.frmEntreeJeu.dispose();
-					this.frmArene = new Arene();
+					this.frmArene = new Arene(this);
 					this.frmChoixJoueur = new ChoixJoueur(this);
 					this.frmChoixJoueur.setVisible(true);
 				} else {
@@ -93,5 +107,4 @@ public class Controle implements AsyncResponse, Global {
 				break;
 		}
 	}
-
 }

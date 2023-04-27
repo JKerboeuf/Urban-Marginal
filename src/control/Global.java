@@ -1,12 +1,12 @@
 package control;
 
 public interface Global {
-	String SEPARATOR = "/";
-	String BG_PATH = "fonds" + SEPARATOR;
-	String BULLET_PATH = "boules" + SEPARATOR;
-	String WALL_PATH = "murs" + SEPARATOR;
-	String CHAR_PATH = "personnages" + SEPARATOR;
-	String SOUNDS_PATH = "sons" + SEPARATOR;
+	String PATH_SEPARATOR = "/";
+	String BG_PATH = "fonds" + PATH_SEPARATOR;
+	String BULLET_PATH = "boules" + PATH_SEPARATOR;
+	String WALL_PATH = "murs" + PATH_SEPARATOR;
+	String CHAR_PATH = "personnages" + PATH_SEPARATOR;
+	String SOUNDS_PATH = "sons" + PATH_SEPARATOR;
 	String BG_CHOICE = BG_PATH + "fondchoix.jpg";
 	String BG_ARENA = BG_PATH + "fondarene.jpg";
 	String SPRITE_EXT = ".gif";
@@ -22,10 +22,18 @@ public interface Global {
 	String DECONNEXION = "déconnexion";
 	String PSEUDO = "pseudo";
 	String SERVER = "serveur";
-	String AJOUTMUR = "ajout mur";
-	String AJOUTPANELMURS = "ajout panel murs";
+	String CHAT = "chat";
+	String AJOUT_MUR = "ajout mur";
+	String AJOUT_PANEL_MURS = "ajout panel murs";
+	String AJOUT_LABEL_JEU = "ajout label jeu";
+	String AJOUT_PANEL_JEU = "ajout panel jeu";
 	int PORT = 6666;
 	int CHAR_MAX = 3;
+	int CHAR_WIDTH = 40;
+	int CHAR_HEIGHT = 45;
+	int CHAR_TITLE_HEIGHT = 8;
+	int GAUCHE = 0;
+	int DROITE = 1;
 	int ARENA_WIDTH = 800;
 	int ARENA_HEIGHT = 600;
 	int WALLS_MAX = 20;

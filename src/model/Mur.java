@@ -1,9 +1,9 @@
 package model;
 
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
 import control.Global;
 
 /**

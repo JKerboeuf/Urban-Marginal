@@ -1,5 +1,13 @@
 package model;
 
+import java.awt.Font;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 import control.Global;
 
 /*
@@ -20,32 +28,57 @@ public class Joueur extends Objet implements Global {
 	private int vie;
 	// tourné vers la gauche (0) ou vers la droite (1)
 	private int orientation;
+	private JLabel message;
 
 	// Constructeur
-	public Joueur() {
+	public Joueur(JeuServeur jeuServeur) {
+		this.jeuServeur = jeuServeur;
+		this.vie = HP_MAX;
+		this.orientation = DROITE;
+		this.etape = 1;
 	}
 
 	/**
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position,
 	 * affichage, création de la boule)
 	 */
-	public void initPerso(String pseudo, int numPerso) {
+	public void initPerso(String pseudo, int numPerso, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
 		this.pseudo = pseudo;
 		this.numPerso = numPerso;
 		System.out.println("joueur " + pseudo + " - num perso " + numPerso + " créé");
+		super.label = new JLabel();
+		this.message = new JLabel();
+		message.setHorizontalAlignment(SwingConstants.CENTER);
+		message.setFont(new Font("Dialog", Font.PLAIN, 8));
+		this.premierePosition(lesJoueurs, lesMurs);
+		this.jeuServeur.ajoutLabelJeuArene(label);
+		this.jeuServeur.ajoutLabelJeuArene(message);
+		this.affiche(WALK, this.etape);
 	}
 
 	/**
 	 * Calcul de la première position aléatoire du joueur (sans chevaucher un autre
 	 * joueur ou un mur)
 	 */
-	private void premierePosition() {
+	private void premierePosition(Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+		label.setBounds(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
+		do {
+			posX = (int) Math.round(Math.random() * (ARENA_WIDTH - CHAR_WIDTH));
+			posY = (int) Math.round(Math.random() * (ARENA_HEIGHT - CHAR_HEIGHT - CHAR_TITLE_HEIGHT));
+		} while (this.toucheJoueur(lesJoueurs) || this.toucheMur(lesMurs));
 	}
 
 	/**
 	 * Affiche le personnage et son message
 	 */
-	public void affiche() {
+	public void affiche(String etat, int etape) {
+		super.label.setBounds(posX, posY, CHAR_WIDTH, CHAR_HEIGHT);
+		String fileName = CHAR + this.numPerso + etat + etape + "d" + orientation;
+		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
+		label.setIcon(new ImageIcon(resource));
+		this.message.setBounds(posX - 10, posY + CHAR_HEIGHT, CHAR_WIDTH + 10, CHAR_TITLE_HEIGHT);
+		this.message.setText(pseudo + " : " + vie);
+		this.jeuServeur.envoiJeuATous();
 	}
 
 	/**
@@ -65,8 +98,15 @@ public class Joueur extends Objet implements Global {
 	 *
 	 * @return true si deux joueurs se touchent
 	 */
-	private Boolean toucheJoueur() {
-		return null;
+	private Boolean toucheJoueur(Collection<Joueur> lesJoueurs) {
+		for (Joueur unJoueur : lesJoueurs) {
+			if (!this.equals(unJoueur)) {
+				if (super.toucheObjet(unJoueur)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -74,8 +114,13 @@ public class Joueur extends Objet implements Global {
 	 *
 	 * @return true si un joueur touche un mur
 	 */
-	private Boolean toucheMur() {
-		return null;
+	private Boolean toucheMur(ArrayList<Mur> lesMurs) {
+		for (Mur unMur : lesMurs) {
+			if (super.toucheObjet(unMur)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
