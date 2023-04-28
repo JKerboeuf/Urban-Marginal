@@ -44,7 +44,7 @@ public class JeuClient extends Jeu implements Global {
 	 * Méthode qui gère la reception de données
 	 *
 	 * @param connection la connection dont vient l'information à traiter
-	 * @param info l'information à traiter
+	 * @param info       l'information à traiter
 	 */
 	@Override
 	public void reception(Connection connection, Object info) {

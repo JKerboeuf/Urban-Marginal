@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import javax.swing.JLabel;
 
@@ -33,6 +34,15 @@ public class JeuServeur extends Jeu implements Global {
 	}
 
 	/**
+	 * getter sur les joueurs
+	 *
+	 * @return une collection contenant les joueurs
+	 */
+	public Collection getLesJoueurs() {
+		return lesJoueurs.values();
+	}
+
+	/**
 	 * Méthode qui connecte un client au serveur
 	 *
 	 * @param connection l'instance de la connection a lier
@@ -46,7 +56,7 @@ public class JeuServeur extends Jeu implements Global {
 	 * Méthode qui gère la reception de données
 	 *
 	 * @param connection la connection dont vient l'information à traiter
-	 * @param info l'information à traiter
+	 * @param info       l'information à traiter
 	 */
 	@Override
 	public void reception(Connection connection, Object info) {

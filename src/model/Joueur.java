@@ -51,6 +51,18 @@ public class Joueur extends Objet implements Global {
 	private JLabel message;
 
 	/**
+	 * Constructeur
+	 *
+	 * @param jeuServeur l'instance du jeu serveur
+	 */
+	public Joueur(JeuServeur jeuServeur) {
+		this.jeuServeur = jeuServeur;
+		this.vie = HP_MAX;
+		this.etape = 1;
+		this.orientation = DROITE;
+	}
+
+	/**
 	 * getter sur le pseudo
 	 *
 	 * @return le pseudo du joueur
@@ -60,15 +72,12 @@ public class Joueur extends Objet implements Global {
 	}
 
 	/**
-	 * Constructeur
+	 * getter sur l'orientation du joueur
 	 *
-	 * @param jeuServeur l'instance du jeu serveur
+	 * @return l'entier correspondant au sens du joueur
 	 */
-	public Joueur(JeuServeur jeuServeur) {
-		this.jeuServeur = jeuServeur;
-		this.vie = HP_MAX;
-		this.orientation = DROITE;
-		this.etape = 1;
+	public int getOrientation() {
+		return orientation;
 	}
 
 	/**
@@ -81,7 +90,7 @@ public class Joueur extends Objet implements Global {
 	 * @param lesMurs    la collection de murs pour verifier qu'il ne spawn pas dans
 	 *                   un mur
 	 */
-	public void initPerso(String pseudo, int numPerso, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+	public void initPerso(String pseudo, int numPerso, Collection lesJoueurs, Collection lesMurs) {
 		this.pseudo = pseudo;
 		this.numPerso = numPerso;
 		System.out.println("joueur " + pseudo + " - num perso " + numPerso + " créé");
@@ -89,9 +98,11 @@ public class Joueur extends Objet implements Global {
 		this.message = new JLabel();
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setFont(new Font("Dialog", Font.PLAIN, 8));
+		this.boule = new Boule(this.jeuServeur);
 		this.premierePosition(lesJoueurs, lesMurs);
 		this.jeuServeur.ajoutLabelJeuArene(label);
 		this.jeuServeur.ajoutLabelJeuArene(message);
+		this.jeuServeur.ajoutLabelJeuArene(boule.getLabel());
 		this.affiche(WALK, this.etape);
 	}
 
@@ -102,12 +113,12 @@ public class Joueur extends Objet implements Global {
 	 * @param lesJoueurs collection de joueurs pour verifier le bon spawn
 	 * @param lesMurs    collection de murs pour verifier le bon spawn
 	 */
-	private void premierePosition(Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+	private void premierePosition(Collection lesJoueurs, Collection lesMurs) {
 		label.setBounds(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
 		do {
 			posX = (int) Math.round(Math.random() * (ARENA_WIDTH - CHAR_WIDTH));
 			posY = (int) Math.round(Math.random() * (ARENA_HEIGHT - CHAR_HEIGHT - CHAR_TITLE_HEIGHT));
-		} while (this.toucheJoueur(lesJoueurs) || this.toucheMur(lesMurs));
+		} while (this.toucheCollectionObjets(lesJoueurs) != null || this.toucheCollectionObjets(lesMurs) != null);
 	}
 
 	/**
@@ -149,6 +160,11 @@ public class Joueur extends Objet implements Global {
 			case KeyEvent.VK_DOWN:
 				this.posY += deplace(BAS, lesJoueurs, lesMurs);
 				break;
+			case KeyEvent.VK_SPACE:
+				if (!this.boule.getLabel().isVisible()) {
+					this.boule.tireBoule(this, lesMurs);
+				}
+				break;
 		}
 		affiche(WALK, this.etape);
 	}
@@ -156,9 +172,9 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Gère le déplacement du personnage
 	 *
-	 * @param sens le sens du déplacement
+	 * @param sens    le sens du déplacement
 	 * @param joueurs les joueurs pour tester les collisions
-	 * @param murs les murs pour tester les collisions
+	 * @param murs    les murs pour tester les collisions
 	 * @return 0 ou STEP_SIZE pour incrementer la position du personnage
 	 */
 	private int deplace(int sens, Collection<Joueur> joueurs, ArrayList<Mur> murs) {
@@ -166,29 +182,29 @@ public class Joueur extends Objet implements Global {
 		switch (sens) {
 			case GAUCHE:
 				if (toucheJoueur(this.posX - STEP_SIZE, this.posY, joueurs) ||
-					toucheMur(this.posX - STEP_SIZE, this.posY, murs) ||
-					posX - STEP_SIZE < 0) {
+						toucheMur(this.posX - STEP_SIZE, this.posY, murs) ||
+						posX - STEP_SIZE < 0) {
 					collision = true;
 				}
 				break;
 			case DROITE:
 				if (toucheJoueur(this.posX + STEP_SIZE, this.posY, joueurs) ||
-					toucheMur(this.posX + STEP_SIZE, this.posY, murs) ||
-					posX + CHAR_WIDTH + STEP_SIZE > ARENA_WIDTH) {
+						toucheMur(this.posX + STEP_SIZE, this.posY, murs) ||
+						posX + CHAR_WIDTH + STEP_SIZE > ARENA_WIDTH) {
 					collision = true;
 				}
 				break;
 			case HAUT:
 				if (toucheJoueur(this.posX, this.posY - STEP_SIZE, joueurs) ||
-					toucheMur(this.posX, this.posY - STEP_SIZE, murs) ||
-					posY - STEP_SIZE < 0) {
+						toucheMur(this.posX, this.posY - STEP_SIZE, murs) ||
+						posY - STEP_SIZE < 0) {
 					collision = true;
 				}
 				break;
 			case BAS:
 				if (toucheJoueur(this.posX, this.posY + STEP_SIZE, joueurs) ||
-					toucheMur(this.posX, this.posY + STEP_SIZE, murs) ||
-					posY + CHAR_HEIGHT + STEP_SIZE > ARENA_HEIGHT) {
+						toucheMur(this.posX, this.posY + STEP_SIZE, murs) ||
+						posY + CHAR_HEIGHT + STEP_SIZE > ARENA_HEIGHT) {
 					collision = true;
 				}
 				break;
@@ -272,12 +288,14 @@ public class Joueur extends Objet implements Global {
 	 * Gain de points de vie après avoir touché un joueur
 	 */
 	public void gainVie() {
+		this.vie += GAIN;
 	}
 
 	/**
 	 * Perte de points de vie après avoir été touché
 	 */
 	public void perteVie() {
+		this.vie = Math.max(0, this.vie - PERTE);
 	}
 
 	/**
@@ -286,7 +304,7 @@ public class Joueur extends Objet implements Global {
 	 * @return true si vie = 0
 	 */
 	public Boolean estMort() {
-		return null;
+		return (this.vie == 0);
 	}
 
 	/**

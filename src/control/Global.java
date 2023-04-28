@@ -8,7 +8,7 @@ package control;
 public interface Global {
 	String PATH_SEPARATOR = "/";
 	String BG_PATH = "fonds" + PATH_SEPARATOR;
-	String BULLET_PATH = "boules" + PATH_SEPARATOR;
+	String BALL_PATH = "boules" + PATH_SEPARATOR;
 	String WALL_PATH = "murs" + PATH_SEPARATOR;
 	String CHAR_PATH = "personnages" + PATH_SEPARATOR;
 	String SOUNDS_PATH = "sons" + PATH_SEPARATOR;
@@ -16,10 +16,10 @@ public interface Global {
 	String BG_ARENA = BG_PATH + "fondarene.jpg";
 	String SPRITE_EXT = ".gif";
 	String CHAR = "perso";
-	String BULLET_SPRITE = BULLET_PATH + "boule.gif";
+	String BALL_SPRITE = BALL_PATH + "boule.gif";
 	String WALL_SPRITE = WALL_PATH + "mur.gif";
 	String WALK = "marche";
-	String TOUCH = "touche";
+	String HIT = "touche";
 	String DEAD = "mort";
 	String STR_SEPARATOR = "~";
 	String CONNEXION = "connexion";
@@ -50,8 +50,14 @@ public interface Global {
 	int ARENA_HEIGHT = 600;
 	int WALLS_MAX = 20;
 	int WALL_SIZE = 35;
+	int BALL_SIZE = 20;
+	int BALL_SPEED = 10;
 	int HP_MAX = 10;
 	int GAIN = 1;
 	int PERTE = 2;
 	int STEP_SIZE = 10;
+	int ANIM_STEPS_WALK = 4;
+	int ANIM_STEPS_HIT = 2;
+	int ANIM_STEPS_DEAD = 2;
+	long ANIM_DELAY = 150;
 }

@@ -26,7 +26,7 @@ public class Son implements Serializable {
 	 */
 	public Son(URL nomfic) {
 		try {
-//            this.sound = new Sound(new File(nomfic));
+			// this.sound = new Sound(new File(nomfic));
 			this.sound = new Sound(nomfic);
 		} catch (SonException ex) {
 		}

@@ -106,7 +106,7 @@ public class Arene extends JFrame implements Global {
 		this.jpnJeu.removeAll();
 		this.jpnJeu.add(jpnJeu);
 		this.jpnJeu.repaint();
-		contentPane.requestFocus();
+		this.contentPane.requestFocus();
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class Arene extends JFrame implements Global {
 	 * @param line ligne de texte à ajouter
 	 */
 	public void ajoutTchat(String line) {
-		txtChat.setText(txtChat.getText() + line + "\r\n");
+		this.txtChat.setText(this.txtChat.getText() + line + "\r\n");
 		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
 	}
 
@@ -150,8 +150,8 @@ public class Arene extends JFrame implements Global {
 			if (!this.txtInput.getText().equals("")) {
 				this.controle.evenementArene(this.txtInput.getText());
 				this.txtInput.setText("");
-				contentPane.requestFocus();
 			}
+			this.contentPane.requestFocus();
 		}
 	}
 
@@ -168,10 +168,13 @@ public class Arene extends JFrame implements Global {
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_SPACE:
 				key = e.getKeyCode();
 				break;
 		}
-		this.controle.evenementArene(key);
+		if (key != -1) {
+			this.controle.evenementArene(key);
+		}
 	}
 
 	/**

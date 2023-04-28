@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Collection;
+
 import javax.swing.JLabel;
 
 /**
@@ -12,22 +14,40 @@ public abstract class Objet {
 	/**
 	 * position X de l'objet
 	 */
-	protected Integer posX;
+	protected int posX;
 	/**
 	 * position Y de l'objet
 	 */
-	protected Integer posY;
+	protected int posY;
 	/**
 	 * le label pour afficher l'objet
 	 */
 	protected JLabel label;
 
 	/**
+	 * getter sur la position X de l'objet
+	 *
+	 * @return la position en X de l'objet
+	 */
+	public int getPosX() {
+		return posX;
+	}
+
+	/**
+	 * getter sur la position Y de l'objet
+	 *
+	 * @return la position en Y de l'objet
+	 */
+	public int getPosY() {
+		return posY;
+	}
+
+	/**
 	 * getter du label de l'objet
 	 *
 	 * @return le label de l'objet
 	 */
-	protected JLabel getLabel() {
+	public JLabel getLabel() {
 		return label;
 	}
 
@@ -65,5 +85,20 @@ public abstract class Objet {
 					this.posY + this.label.getHeight() > objet.posY &&
 					this.posY < objet.posY + objet.label.getHeight());
 		}
+	}
+
+	/**
+	 * vérification si un objet touche un autre parmi une collection
+	 *
+	 * @param lesObjets la collection d'objet a tester
+	 * @return l'objet en collision ou null si aucun autre objet ne touche
+	 */
+	public Objet toucheCollectionObjets(Collection<Objet> lesObjets) {
+		for (Objet unObjet : lesObjets) {
+			if (!unObjet.equals(this) && toucheObjet(unObjet)) {
+				return unObjet;
+			}
+		}
+		return null;
 	}
 }
