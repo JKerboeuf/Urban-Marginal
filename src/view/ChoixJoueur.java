@@ -15,10 +15,11 @@ import javax.swing.SwingConstants;
 
 import control.Controle;
 import control.Global;
+import tools.son.Son;
 
 /**
  * frame du choix de personnage
- * 
+ *
  * @author JKerboeuf
  */
 public class ChoixJoueur extends JFrame implements Global {
@@ -42,11 +43,28 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * numero du joueur
 	 */
 	private int numPerso;
+	/**
+	 * son de bienvenue
+	 */
+	private Son sndWelcome;
+	/**
+	 * son sur le bouton precedent
+	 */
+	private Son sndPrev;
+	/**
+	 * son sur le bouton suivant
+	 */
+	private Son sndNext;
+	/**
+	 * son sur le bouton GO
+	 */
+	private Son sndGo;
 
 	/**
 	 * Event sur le clic du label gauche
 	 */
 	private void lblLeft_clic() {
+		sndPrev.play();
 		if (this.numPerso > 1) {
 			this.numPerso--;
 		} else {
@@ -59,6 +77,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * Event sur le clic du label droit
 	 */
 	private void lblRight_clic() {
+		sndNext.play();
 		if (this.numPerso < CHAR_TYPES) {
 			this.numPerso++;
 		} else {
@@ -75,6 +94,7 @@ public class ChoixJoueur extends JFrame implements Global {
 			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
 			this.txtPseudo.requestFocus();
 		} else {
+			sndGo.play();
 			this.controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
 		}
 	}
@@ -199,5 +219,11 @@ public class ChoixJoueur extends JFrame implements Global {
 		this.numPerso = 1;
 		this.affichePerso();
 		txtPseudo.requestFocus();
+
+		sndPrev = new Son(getClass().getClassLoader().getResource(SOUND_PREV));
+		sndNext = new Son(getClass().getClassLoader().getResource(SOUND_NEXT));
+		sndGo = new Son(getClass().getClassLoader().getResource(SOUND_GO));
+		sndWelcome = new Son(getClass().getClassLoader().getResource(SOUND_WELCOME));
+		sndWelcome.play();
 	}
 }

@@ -14,10 +14,11 @@ import javax.swing.JTextField;
 
 import control.Controle;
 import control.Global;
+import tools.son.Son;
 
 /**
  * frame de l'arene de jeu
- * 
+ *
  * @author JKerboeuf
  */
 public class Arene extends JFrame implements Global {
@@ -49,6 +50,10 @@ public class Arene extends JFrame implements Global {
 	 * booleen pour savoir si le chat doit etre affiché ou pas
 	 */
 	private boolean client;
+	/**
+	 * sons de l'arene
+	 */
+	private Son[] lesSons = new Son[SOUNDS_ARENA.length];
 
 	/**
 	 * getter du chat
@@ -137,6 +142,15 @@ public class Arene extends JFrame implements Global {
 	public void ajoutTchat(String line) {
 		this.txtChat.setText(this.txtChat.getText() + line + "\r\n");
 		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
+	}
+
+	/**
+	 * Joue le son correspondant au num�ro re�u
+	 *
+	 * @param numSon numéro du son (0 : fight, 1 : hurt; 2 : death)
+	 */
+	public void joueSon(Integer numSon) {
+		this.lesSons[numSon].play();
 	}
 
 	/**
@@ -247,6 +261,10 @@ public class Arene extends JFrame implements Global {
 			txtInput.setBounds(0, 600, 800, 30);
 			contentPane.add(txtInput);
 			txtInput.setColumns(10);
+
+			for (int k = 0; k < SOUNDS_ARENA.length; k++) {
+				lesSons[k] = new Son(getClass().getClassLoader().getResource(SOUNDS_ARENA[k]));
+			}
 		}
 
 		this.controle = controle;

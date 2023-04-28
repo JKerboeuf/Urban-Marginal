@@ -18,17 +18,17 @@ public interface Global {
 	String CHAT_SEPARATOR = " > ";
 
 	// Path
-	String PATH_SEPARATOR = "/";
 	String SPRITE_EXT = ".gif";
-	String BG_PATH = "fonds" + PATH_SEPARATOR;
-	String BG_CHOICE = BG_PATH + "fondchoix.jpg";
-	String BG_ARENA = BG_PATH + "fondarene.jpg";
-	String CHAR_PATH = "personnages" + PATH_SEPARATOR + "perso";
-	String SOUNDS_PATH = "sons" + PATH_SEPARATOR;
-	String BALL_PATH = "boules" + PATH_SEPARATOR;
-	String BALL_SPRITE = BALL_PATH + "boule" + SPRITE_EXT;
-	String WALL_PATH = "murs" + PATH_SEPARATOR;
-	String WALL_SPRITE = WALL_PATH + "mur" + SPRITE_EXT;
+	String BG_CHOICE = "fonds/fondchoix.jpg";
+	String BG_ARENA = "fonds/fondarene.jpg";
+	String CHAR_PATH = "personnages/perso";
+	String BALL_SPRITE = "boules/boule.gif";
+	String WALL_SPRITE = "murs/mur.gif";
+	String SOUND_WELCOME = "sons/welcome.wav";
+	String SOUND_PREV = "sons/precedent.wav";
+	String SOUND_NEXT = "sons/suivant.wav";
+	String SOUND_GO = "sons/go.wav";
+	String[] SOUNDS_ARENA =  {"sons/fight.wav", "sons/hurt.wav", "sons/death.wav"} ;
 
 	// Order
 	String STR_SEPARATOR = "~";
@@ -37,8 +37,8 @@ public interface Global {
 	String DECONNEXION = "déconnexion";
 	String AJOUT_MUR = "ajout mur";
 	String AJOUT_PANEL_MURS = "ajout panel murs";
-	String AJOUT_LABEL_JEU = "ajout label jeu";
 	String AJOUT_PANEL_JEU = "ajout panel jeu";
+	String AJOUT_LABEL_JEU = "ajout label jeu";
 	String AJOUT_CHAT = "ajout chat";
 	String MODIF_CHAT = "modif chat";
 	String CHAT = "chat";
@@ -46,6 +46,10 @@ public interface Global {
 	String ACTION = "action";
 	String SERVER = "serveur";
 	String CLIENT = "client";
+	String JOUE_SON = "joue son";
+	int FIGHT = 0;
+	int HURT = 1;
+	int DEATH = 2;
 
 	// Animation
 	String WALK = "marche";

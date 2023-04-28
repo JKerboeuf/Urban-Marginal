@@ -12,7 +12,7 @@ import control.Controle;
 
 /**
  * frame de connexion au jeu
- * 
+ *
  * @author JKerboeuf
  */
 public class EntreeJeu extends JFrame {

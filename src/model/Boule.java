@@ -50,6 +50,7 @@ public class Boule extends Objet implements Global, Runnable {
 
 	@Override
 	public void run() {
+		this.jeuServeur.envoi(FIGHT);
 		this.tireur.affiche(WALK, 1);
 		super.label.setVisible(true);
 		Joueur victime = null;
@@ -67,6 +68,7 @@ public class Boule extends Objet implements Global, Runnable {
 			victime = (Joueur) super.toucheCollectionObjets(lesJoueurs);
 		} while (posX >= 0 && posX <= ARENA_WIDTH && victime == null && this.toucheCollectionObjets(lesMurs) == null);
 		if (victime != null && !victime.estMort()) {
+			this.jeuServeur.envoi(HURT);
 			victime.perteVie();
 			tireur.gainVie();
 			for (int i = 1; i <= ANIM_STEPS_HIT; i++) {
@@ -74,6 +76,7 @@ public class Boule extends Objet implements Global, Runnable {
 				pause(ANIM_DELAY);
 			}
 			if (victime.estMort()) {
+				this.jeuServeur.envoi(DEATH);
 				for (int i = 1; i <= ANIM_STEPS_DEAD; i++) {
 					victime.affiche(DEAD, i);
 					pause(ANIM_DELAY);
