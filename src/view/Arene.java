@@ -56,142 +56,6 @@ public class Arene extends JFrame implements Global {
 	private Son[] lesSons = new Son[SOUNDS_ARENA.length];
 
 	/**
-	 * getter du chat
-	 *
-	 * @return le texte entier du chat
-	 */
-	public String getTxtChat() {
-		return txtChat.getText();
-	}
-
-	/**
-	 * setter du chat
-	 *
-	 * @param text le text pour remplacer le chat
-	 */
-	public void setTxtChat(String text) {
-		this.txtChat.setText(text);
-		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
-	}
-
-	/**
-	 * getter du panel des murs
-	 *
-	 * @return le panel des murs
-	 */
-	public JPanel getJpnMurs() {
-		return jpnMurs;
-	}
-
-	/**
-	 * setter du panel des murs
-	 *
-	 * @param jpnMurs le panel des murs à set
-	 */
-	public void setJpnMurs(JPanel jpnMurs) {
-		this.jpnMurs.add(jpnMurs);
-		this.jpnMurs.repaint();
-	}
-
-	/**
-	 * getter du panel de jeu
-	 *
-	 * @return le panel du jeu
-	 */
-	public JPanel getJpnJeu() {
-		return jpnJeu;
-	}
-
-	/**
-	 * setter du panel de jeu
-	 *
-	 * @param jpnJeu le panel de jeu à remplacer
-	 */
-	public void setJpnJeu(JPanel jpnJeu) {
-		this.jpnJeu.removeAll();
-		this.jpnJeu.add(jpnJeu);
-		this.jpnJeu.repaint();
-		this.contentPane.requestFocus();
-	}
-
-	/**
-	 * ajoute les murs
-	 *
-	 * @param unMur mur à ajouter
-	 */
-	public void ajoutMurs(Object unMur) {
-		jpnMurs.add((JLabel) unMur);
-		jpnMurs.repaint();
-	}
-
-	/**
-	 * ajoute un label de jeu
-	 *
-	 * @param label le label à ajouter
-	 */
-	public void ajoutLabelJeu(JLabel label) {
-		this.jpnJeu.add(label);
-		this.jpnJeu.repaint();
-	}
-
-	/**
-	 * ajoute une ligne de texte au chat
-	 *
-	 * @param line ligne de texte à ajouter
-	 */
-	public void ajoutTchat(String line) {
-		this.txtChat.setText(this.txtChat.getText() + line + "\r\n");
-		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
-	}
-
-	/**
-	 * Joue le son correspondant au num�ro re�u
-	 *
-	 * @param numSon numéro du son (0 : fight, 1 : hurt; 2 : death)
-	 */
-	public void joueSon(Integer numSon) {
-		this.lesSons[numSon].play();
-	}
-
-	/**
-	 * évenement de touche de clavier
-	 * vérifie la touche pour envoyer du texte au chat
-	 *
-	 * @param e evenement clavier
-	 */
-	public void txtInput_KeyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (!this.txtInput.getText().equals("")) {
-				this.controle.evenementArene(this.txtInput.getText());
-				this.txtInput.setText("");
-			}
-			this.contentPane.requestFocus();
-		}
-	}
-
-	/**
-	 * évenement de touche de clavier
-	 * vérifie les fleches pour faire bouger le personnag
-	 *
-	 * @param e evenement clavier
-	 */
-	public void contentPane_KeyPressed(KeyEvent e) {
-		int key = -1;
-		switch (e.getKeyCode()) {
-			case KeyEvent.VK_LEFT:
-			case KeyEvent.VK_RIGHT:
-			case KeyEvent.VK_UP:
-			case KeyEvent.VK_DOWN:
-			case KeyEvent.VK_SPACE:
-				key = e.getKeyCode();
-				break;
-		}
-		if (key != -1) {
-			this.controle.evenementArene(key);
-		}
-	}
-
-	/**
 	 * constructeur
 	 *
 	 * @param controle le controleur
@@ -268,5 +132,141 @@ public class Arene extends JFrame implements Global {
 		}
 
 		this.controle = controle;
+	}
+
+	/**
+	 * getter du chat
+	 *
+	 * @return le texte entier du chat
+	 */
+	public String getTxtChat() {
+		return txtChat.getText();
+	}
+
+	/**
+	 * setter du chat
+	 *
+	 * @param text le text pour remplacer le chat
+	 */
+	public void setTxtChat(String text) {
+		this.txtChat.setText(text);
+		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
+	}
+
+	/**
+	 * getter du panel des murs
+	 *
+	 * @return le panel des murs
+	 */
+	public JPanel getJpnMurs() {
+		return jpnMurs;
+	}
+
+	/**
+	 * setter du panel des murs
+	 *
+	 * @param jpnMurs le panel des murs à set
+	 */
+	public void setJpnMurs(JPanel jpnMurs) {
+		this.jpnMurs.add(jpnMurs);
+		this.jpnMurs.repaint();
+	}
+
+	/**
+	 * getter du panel de jeu
+	 *
+	 * @return le panel du jeu
+	 */
+	public JPanel getJpnJeu() {
+		return jpnJeu;
+	}
+
+	/**
+	 * setter du panel de jeu
+	 *
+	 * @param jpnJeu le panel de jeu à remplacer
+	 */
+	public void setJpnJeu(JPanel jpnJeu) {
+		this.jpnJeu.removeAll();
+		this.jpnJeu.add(jpnJeu);
+		this.jpnJeu.repaint();
+		this.contentPane.requestFocus();
+	}
+
+	/**
+	 * évenement de touche de clavier
+	 * vérifie la touche pour envoyer du texte au chat
+	 *
+	 * @param e evenement clavier
+	 */
+	public void txtInput_KeyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (!this.txtInput.getText().equals("")) {
+				this.controle.evenementArene(this.txtInput.getText());
+				this.txtInput.setText("");
+			}
+			this.contentPane.requestFocus();
+		}
+	}
+
+	/**
+	 * évenement de touche de clavier
+	 * vérifie les fleches pour faire bouger le personnag
+	 *
+	 * @param e evenement clavier
+	 */
+	public void contentPane_KeyPressed(KeyEvent e) {
+		int key = -1;
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_UP:
+			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_SPACE:
+				key = e.getKeyCode();
+				break;
+		}
+		if (key != -1) {
+			this.controle.evenementArene(key);
+		}
+	}
+
+	/**
+	 * ajoute les murs
+	 *
+	 * @param unMur mur à ajouter
+	 */
+	public void ajoutMurs(Object unMur) {
+		jpnMurs.add((JLabel) unMur);
+		jpnMurs.repaint();
+	}
+
+	/**
+	 * ajoute un label de jeu
+	 *
+	 * @param label le label à ajouter
+	 */
+	public void ajoutLabelJeu(JLabel label) {
+		this.jpnJeu.add(label);
+		this.jpnJeu.repaint();
+	}
+
+	/**
+	 * ajoute une ligne de texte au chat
+	 *
+	 * @param line ligne de texte à ajouter
+	 */
+	public void ajoutTchat(String line) {
+		this.txtChat.setText(this.txtChat.getText() + line + "\r\n");
+		this.txtChat.setCaretPosition(this.txtChat.getDocument().getLength());
+	}
+
+	/**
+	 * Joue le son correspondant au num�ro re�u
+	 *
+	 * @param numSon numéro du son (0 : fight, 1 : hurt; 2 : death)
+	 */
+	public void joueSon(int numSon) {
+		this.lesSons[numSon].play();
 	}
 }

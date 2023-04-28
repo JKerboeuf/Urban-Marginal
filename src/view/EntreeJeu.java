@@ -30,27 +30,6 @@ public class EntreeJeu extends JFrame {
 	private Controle controle;
 
 	/**
-	 * Event sur le clic du bouton start
-	 */
-	private void btnStart_clic() {
-		this.controle.evenementEntreeJeu("serveur");
-	}
-
-	/**
-	 * Event sur le clic du bouton connect
-	 */
-	private void btnConnect_clic() {
-		this.controle.evenementEntreeJeu(this.txtServerIp.getText());
-	}
-
-	/**
-	 * Event sur le clic du bouton exit
-	 */
-	private void btnExit_clic() {
-		System.exit(0);
-	}
-
-	/**
 	 * constructeur
 	 *
 	 * @param controle le controleur
@@ -109,5 +88,26 @@ public class EntreeJeu extends JFrame {
 		txtServerIp.setColumns(10);
 
 		this.controle = controle;
+	}
+
+	/**
+	 * Event sur le clic du bouton start
+	 */
+	private void btnStart_clic() {
+		this.controle.evenementEntreeJeu("serveur");
+	}
+
+	/**
+	 * Event sur le clic du bouton connect
+	 */
+	private void btnConnect_clic() {
+		this.controle.evenementEntreeJeu(this.txtServerIp.getText());
+	}
+
+	/**
+	 * Event sur le clic du bouton exit
+	 */
+	private void btnExit_clic() {
+		System.exit(0);
 	}
 }

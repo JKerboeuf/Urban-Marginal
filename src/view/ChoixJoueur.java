@@ -61,68 +61,6 @@ public class ChoixJoueur extends JFrame implements Global {
 	private Son sndGo;
 
 	/**
-	 * Event sur le clic du label gauche
-	 */
-	private void lblLeft_clic() {
-		sndPrev.play();
-		if (this.numPerso > 1) {
-			this.numPerso--;
-		} else {
-			this.numPerso = CHAR_TYPES;
-		}
-		affichePerso();
-	}
-
-	/**
-	 * Event sur le clic du label droit
-	 */
-	private void lblRight_clic() {
-		sndNext.play();
-		if (this.numPerso < CHAR_TYPES) {
-			this.numPerso++;
-		} else {
-			this.numPerso = 1;
-		}
-		affichePerso();
-	}
-
-	/**
-	 * Event sur le clic du label go
-	 */
-	private void lblGo_clic() {
-		if (this.txtPseudo.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
-			this.txtPseudo.requestFocus();
-		} else {
-			sndGo.play();
-			this.controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
-		}
-	}
-
-	/**
-	 * affiche le personnage
-	 */
-	private void affichePerso() {
-		String fileName = this.numPerso + WALK + 1 + "d" + 1;
-		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
-		this.lblPerso.setIcon(new ImageIcon(resource));
-	}
-
-	/**
-	 * definie le curseur de la souris sur celui par défaut
-	 */
-	private void sourisNormale() {
-		contentPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-	}
-
-	/**
-	 * definie le curseur de la souris sur celui de main pour cliquer
-	 */
-	private void sourisDoigt() {
-		contentPane.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	}
-
-	/**
 	 * constructeur
 	 *
 	 * @param controle le controleur
@@ -225,5 +163,67 @@ public class ChoixJoueur extends JFrame implements Global {
 		sndGo = new Son(getClass().getClassLoader().getResource(SOUND_GO));
 		sndWelcome = new Son(getClass().getClassLoader().getResource(SOUND_WELCOME));
 		sndWelcome.play();
+	}
+
+	/**
+	 * Event sur le clic du label gauche
+	 */
+	private void lblLeft_clic() {
+		sndPrev.play();
+		if (this.numPerso > 1) {
+			this.numPerso--;
+		} else {
+			this.numPerso = CHAR_TYPES;
+		}
+		affichePerso();
+	}
+
+	/**
+	 * Event sur le clic du label droit
+	 */
+	private void lblRight_clic() {
+		sndNext.play();
+		if (this.numPerso < CHAR_TYPES) {
+			this.numPerso++;
+		} else {
+			this.numPerso = 1;
+		}
+		affichePerso();
+	}
+
+	/**
+	 * Event sur le clic du label go
+	 */
+	private void lblGo_clic() {
+		if (this.txtPseudo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
+			this.txtPseudo.requestFocus();
+		} else {
+			sndGo.play();
+			this.controle.evenementChoixJoueur(this.txtPseudo.getText(), numPerso);
+		}
+	}
+
+	/**
+	 * definie le curseur de la souris sur celui par défaut
+	 */
+	private void sourisNormale() {
+		contentPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}
+
+	/**
+	 * definie le curseur de la souris sur celui de main pour cliquer
+	 */
+	private void sourisDoigt() {
+		contentPane.setCursor(new Cursor(Cursor.HAND_CURSOR));
+	}
+
+	/**
+	 * affiche le personnage
+	 */
+	private void affichePerso() {
+		String fileName = this.numPerso + WALK + 1 + "d" + 1;
+		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
+		this.lblPerso.setIcon(new ImageIcon(resource));
 	}
 }

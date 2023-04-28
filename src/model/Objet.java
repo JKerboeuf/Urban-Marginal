@@ -59,7 +59,7 @@ public abstract class Objet {
 	 * @param objet contient l'objet à contrôler
 	 * @return true si les 2 objets se touchent
 	 */
-	public Boolean toucheObjet(int testX, int testY, Objet objet) {
+	public boolean toucheObjet(int testX, int testY, Objet objet) {
 		if (objet.label == null || objet.label == null) {
 			return false;
 		} else {
@@ -76,7 +76,7 @@ public abstract class Objet {
 	 * @param objet contient l'objet à contrôler
 	 * @return true si les 2 objets se touchent
 	 */
-	public Boolean toucheObjet(Objet objet) {
+	public boolean toucheObjet(Objet objet) {
 		if (objet.label == null || objet.label == null) {
 			return false;
 		} else {

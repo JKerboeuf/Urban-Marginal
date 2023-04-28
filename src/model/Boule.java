@@ -18,11 +18,19 @@ public class Boule extends Objet implements Global, Runnable {
 	 * instance de JeuServeur pour la communication
 	 */
 	private JeuServeur jeuServeur;
-	private Collection lesMurs;
+	/**
+	 * collection des murs de l'arene
+	 */
+	private Collection<Mur> lesMurs;
+	/**
+	 * joueur qui a tiré la boule
+	 */
 	private Joueur tireur;
 
 	/**
 	 * Constructeur
+	 *
+	 * @param jeuServeur le JeuServeur
 	 */
 	public Boule(JeuServeur jeuServeur) {
 		this.jeuServeur = jeuServeur;
@@ -35,8 +43,11 @@ public class Boule extends Objet implements Global, Runnable {
 
 	/**
 	 * Tire d'une boule
+	 *
+	 * @param tireur  le joueur qui a tiré la boule
+	 * @param lesMurs la collection des murs a tester pour les colisions
 	 */
-	public void tireBoule(Joueur tireur, Collection lesMurs) {
+	public void tireBoule(Joueur tireur, Collection<Mur> lesMurs) {
 		this.lesMurs = lesMurs;
 		this.tireur = tireur;
 		if (tireur.getOrientation() == GAUCHE) {
@@ -64,9 +75,10 @@ public class Boule extends Objet implements Global, Runnable {
 			posX += vitesse;
 			super.label.setBounds(posX, posY, BALL_SIZE, BALL_SIZE);
 			this.jeuServeur.envoiJeuATous();
-			Collection lesJoueurs = this.jeuServeur.getLesJoueurs();
-			victime = (Joueur) super.toucheCollectionObjets(lesJoueurs);
-		} while (posX >= 0 && posX <= ARENA_WIDTH && victime == null && this.toucheCollectionObjets(lesMurs) == null);
+			Collection<Joueur> lesJoueurs = this.jeuServeur.getLesJoueurs();
+			victime = (Joueur) super.toucheCollectionObjets((Collection) lesJoueurs);
+		} while (posX >= 0 && posX <= ARENA_WIDTH && victime == null &&
+				this.toucheCollectionObjets((Collection) lesMurs) == null);
 		if (victime != null && !victime.estMort()) {
 			this.jeuServeur.envoi(HURT);
 			victime.perteVie();

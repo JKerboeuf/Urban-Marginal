@@ -28,7 +28,7 @@ public interface Global {
 	String SOUND_PREV = "sons/precedent.wav";
 	String SOUND_NEXT = "sons/suivant.wav";
 	String SOUND_GO = "sons/go.wav";
-	String[] SOUNDS_ARENA =  {"sons/fight.wav", "sons/hurt.wav", "sons/death.wav"} ;
+	String[] SOUNDS_ARENA = { "sons/fight.wav", "sons/hurt.wav", "sons/death.wav" };
 
 	// Order
 	String STR_SEPARATOR = "~";

@@ -3,7 +3,6 @@ package model;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -90,7 +89,7 @@ public class Joueur extends Objet implements Global {
 	 * @param lesMurs    la collection de murs pour verifier qu'il ne spawn pas dans
 	 *                   un mur
 	 */
-	public void initPerso(String pseudo, int numPerso, Collection lesJoueurs, Collection lesMurs) {
+	public void initPerso(String pseudo, int numPerso, Collection<Joueur> lesJoueurs, Collection<Mur> lesMurs) {
 		this.pseudo = pseudo;
 		this.numPerso = numPerso;
 		System.out.println("joueur " + pseudo + " - num perso " + numPerso + " créé");
@@ -113,12 +112,13 @@ public class Joueur extends Objet implements Global {
 	 * @param lesJoueurs collection de joueurs pour verifier le bon spawn
 	 * @param lesMurs    collection de murs pour verifier le bon spawn
 	 */
-	private void premierePosition(Collection lesJoueurs, Collection lesMurs) {
+	private void premierePosition(Collection<Joueur> lesJoueurs, Collection<Mur> lesMurs) {
 		label.setBounds(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
 		do {
 			posX = (int) Math.round(Math.random() * (ARENA_WIDTH - CHAR_WIDTH));
 			posY = (int) Math.round(Math.random() * (ARENA_HEIGHT - CHAR_HEIGHT - CHAR_TITLE_HEIGHT));
-		} while (this.toucheCollectionObjets(lesJoueurs) != null || this.toucheCollectionObjets(lesMurs) != null);
+		} while (this.toucheCollectionObjets((Collection) lesJoueurs) != null
+				|| this.toucheCollectionObjets((Collection) lesMurs) != null);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class Joueur extends Objet implements Global {
 	 * @param lesJoueurs collection des joueurs pour tester les collisions
 	 * @param lesMurs    collection des murs pour tester les collisions
 	 */
-	public void action(int action, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+	public void action(int action, Collection<Joueur> lesJoueurs, Collection<Mur> lesMurs) {
 		switch (action) {
 			case KeyEvent.VK_LEFT:
 				orientation = GAUCHE;
@@ -177,7 +177,7 @@ public class Joueur extends Objet implements Global {
 	 * @param murs    les murs pour tester les collisions
 	 * @return 0 ou STEP_SIZE pour incrementer la position du personnage
 	 */
-	private int deplace(int sens, Collection<Joueur> joueurs, ArrayList<Mur> murs) {
+	private int deplace(int sens, Collection<Joueur> joueurs, Collection<Mur> murs) {
 		boolean collision = false;
 		switch (sens) {
 			case GAUCHE:
@@ -219,29 +219,12 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Contrôle si le joueur touche un des autres joueurs
 	 *
-	 * @param lesJoueurs les joueurs a tester la position
-	 * @return true si deux joueurs se touchent
-	 */
-	private Boolean toucheJoueur(Collection<Joueur> lesJoueurs) {
-		for (Joueur unJoueur : lesJoueurs) {
-			if (!this.equals(unJoueur)) {
-				if (super.toucheObjet(unJoueur)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Contrôle si le joueur touche un des autres joueurs
-	 *
 	 * @param testX      position X à tester
 	 * @param testY      position Y à tester
 	 * @param lesJoueurs les joueurs a tester la position
 	 * @return true si deux joueurs se touchent
 	 */
-	private Boolean toucheJoueur(int testX, int testY, Collection<Joueur> lesJoueurs) {
+	private boolean toucheJoueur(int testX, int testY, Collection<Joueur> lesJoueurs) {
 		for (Joueur unJoueur : lesJoueurs) {
 			if (!this.equals(unJoueur)) {
 				if (super.toucheObjet(testX, testY, unJoueur)) {
@@ -255,27 +238,12 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * * Contrôle si le joueur touche un des murs
 	 *
-	 * @param lesMurs les murs a tester la position
-	 * @return true si un joueur touche un mur
-	 */
-	private Boolean toucheMur(ArrayList<Mur> lesMurs) {
-		for (Mur unMur : lesMurs) {
-			if (super.toucheObjet(unMur)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * * Contrôle si le joueur touche un des murs
-	 *
 	 * @param testX   position X à tester
 	 * @param testY   position Y à tester
 	 * @param lesMurs les murs a tester la position
 	 * @return true si un joueur touche un mur
 	 */
-	private Boolean toucheMur(int testX, int testY, ArrayList<Mur> lesMurs) {
+	private boolean toucheMur(int testX, int testY, Collection<Mur> lesMurs) {
 		for (Mur unMur : lesMurs) {
 			if (super.toucheObjet(testX, testY, unMur)) {
 				return true;
@@ -303,7 +271,7 @@ public class Joueur extends Objet implements Global {
 	 *
 	 * @return true si vie = 0
 	 */
-	public Boolean estMort() {
+	public boolean estMort() {
 		return (this.vie == 0);
 	}
 
