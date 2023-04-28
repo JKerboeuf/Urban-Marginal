@@ -50,7 +50,7 @@ public class ChoixJoueur extends JFrame implements Global {
 		if (this.numPerso > 1) {
 			this.numPerso--;
 		} else {
-			this.numPerso = CHAR_MAX;
+			this.numPerso = CHAR_TYPES;
 		}
 		affichePerso();
 	}
@@ -59,7 +59,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * Event sur le clic du label droit
 	 */
 	private void lblRight_clic() {
-		if (this.numPerso < CHAR_MAX) {
+		if (this.numPerso < CHAR_TYPES) {
 			this.numPerso++;
 		} else {
 			this.numPerso = 1;
@@ -83,7 +83,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * affiche le personnage
 	 */
 	private void affichePerso() {
-		String fileName = CHAR + this.numPerso + WALK + 1 + "d" + 1;
+		String fileName = this.numPerso + WALK + 1 + "d" + 1;
 		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
 		this.lblPerso.setIcon(new ImageIcon(resource));
 	}

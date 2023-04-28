@@ -129,7 +129,7 @@ public class Joueur extends Objet implements Global {
 	 */
 	public void affiche(String etat, int etape) {
 		super.label.setBounds(posX, posY, CHAR_WIDTH, CHAR_HEIGHT);
-		String fileName = CHAR + this.numPerso + etat + etape + "d" + orientation;
+		String fileName = this.numPerso + etat + etape + "d" + orientation;
 		URL resource = getClass().getClassLoader().getResource(CHAR_PATH + fileName + SPRITE_EXT);
 		super.label.setIcon(new ImageIcon(resource));
 		this.message.setBounds(posX - 10, posY + CHAR_HEIGHT, CHAR_WIDTH + 10, CHAR_TITLE_HEIGHT);
@@ -181,37 +181,37 @@ public class Joueur extends Objet implements Global {
 		boolean collision = false;
 		switch (sens) {
 			case GAUCHE:
-				if (toucheJoueur(this.posX - STEP_SIZE, this.posY, joueurs) ||
-						toucheMur(this.posX - STEP_SIZE, this.posY, murs) ||
-						posX - STEP_SIZE < 0) {
+				if (toucheJoueur(this.posX - WALK_SPEED, this.posY, joueurs) ||
+						toucheMur(this.posX - WALK_SPEED, this.posY, murs) ||
+						posX - WALK_SPEED < 0) {
 					collision = true;
 				}
 				break;
 			case DROITE:
-				if (toucheJoueur(this.posX + STEP_SIZE, this.posY, joueurs) ||
-						toucheMur(this.posX + STEP_SIZE, this.posY, murs) ||
-						posX + CHAR_WIDTH + STEP_SIZE > ARENA_WIDTH) {
+				if (toucheJoueur(this.posX + WALK_SPEED, this.posY, joueurs) ||
+						toucheMur(this.posX + WALK_SPEED, this.posY, murs) ||
+						posX + CHAR_WIDTH + WALK_SPEED > ARENA_WIDTH) {
 					collision = true;
 				}
 				break;
 			case HAUT:
-				if (toucheJoueur(this.posX, this.posY - STEP_SIZE, joueurs) ||
-						toucheMur(this.posX, this.posY - STEP_SIZE, murs) ||
-						posY - STEP_SIZE < 0) {
+				if (toucheJoueur(this.posX, this.posY - WALK_SPEED, joueurs) ||
+						toucheMur(this.posX, this.posY - WALK_SPEED, murs) ||
+						posY - WALK_SPEED < 0) {
 					collision = true;
 				}
 				break;
 			case BAS:
-				if (toucheJoueur(this.posX, this.posY + STEP_SIZE, joueurs) ||
-						toucheMur(this.posX, this.posY + STEP_SIZE, murs) ||
-						posY + CHAR_HEIGHT + STEP_SIZE > ARENA_HEIGHT) {
+				if (toucheJoueur(this.posX, this.posY + WALK_SPEED, joueurs) ||
+						toucheMur(this.posX, this.posY + WALK_SPEED, murs) ||
+						posY + CHAR_HEIGHT + WALK_SPEED > ARENA_HEIGHT) {
 					collision = true;
 				}
 				break;
 		}
 		etape = (etape % 4) + 1;
 		if (!collision) {
-			return STEP_SIZE;
+			return WALK_SPEED;
 		}
 		return 0;
 	}
