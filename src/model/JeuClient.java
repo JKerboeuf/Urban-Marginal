@@ -66,7 +66,8 @@ public class JeuClient extends Jeu implements Global {
 	 * Méthode qui gère les déconnexions
 	 */
 	@Override
-	public void deconnexion() {
+	public void deconnexion(Connection connection) {
+		System.exit(0);
 	}
 
 	/**

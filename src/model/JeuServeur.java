@@ -87,7 +87,9 @@ public class JeuServeur extends Jeu implements Global {
 	 * Méthode qui gère les déconnexions
 	 */
 	@Override
-	public void deconnexion() {
+	public void deconnexion(Connection connection) {
+		this.lesJoueurs.get(connection).departJoueur();
+		this.lesJoueurs.remove(connection);
 	}
 
 	/**

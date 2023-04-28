@@ -145,28 +145,30 @@ public class Joueur extends Objet implements Global {
 	 * @param lesMurs    collection des murs pour tester les collisions
 	 */
 	public void action(int action, Collection<Joueur> lesJoueurs, Collection<Mur> lesMurs) {
-		switch (action) {
-			case KeyEvent.VK_LEFT:
-				orientation = GAUCHE;
-				this.posX -= deplace(GAUCHE, lesJoueurs, lesMurs);
-				break;
-			case KeyEvent.VK_RIGHT:
-				orientation = DROITE;
-				this.posX += deplace(DROITE, lesJoueurs, lesMurs);
-				break;
-			case KeyEvent.VK_UP:
-				this.posY -= deplace(HAUT, lesJoueurs, lesMurs);
-				break;
-			case KeyEvent.VK_DOWN:
-				this.posY += deplace(BAS, lesJoueurs, lesMurs);
-				break;
-			case KeyEvent.VK_SPACE:
-				if (!this.boule.getLabel().isVisible()) {
-					this.boule.tireBoule(this, lesMurs);
-				}
-				break;
+		if (!this.estMort()) {
+			switch (action) {
+				case KeyEvent.VK_LEFT:
+					orientation = GAUCHE;
+					this.posX -= deplace(GAUCHE, lesJoueurs, lesMurs);
+					break;
+				case KeyEvent.VK_RIGHT:
+					orientation = DROITE;
+					this.posX += deplace(DROITE, lesJoueurs, lesMurs);
+					break;
+				case KeyEvent.VK_UP:
+					this.posY -= deplace(HAUT, lesJoueurs, lesMurs);
+					break;
+				case KeyEvent.VK_DOWN:
+					this.posY += deplace(BAS, lesJoueurs, lesMurs);
+					break;
+				case KeyEvent.VK_SPACE:
+					if (!this.boule.getLabel().isVisible()) {
+						this.boule.tireBoule(this, lesMurs);
+					}
+					break;
+			}
+			affiche(WALK, this.etape);
 		}
-		affiche(WALK, this.etape);
 	}
 
 	/**
@@ -279,6 +281,11 @@ public class Joueur extends Objet implements Global {
 	 * Le joueur se déconnecte et disparait
 	 */
 	public void departJoueur() {
+		if(super.label != null) {
+			super.label.setVisible(false);
+			this.message.setVisible(false);
+			this.boule.getLabel().setVisible(false);
+			this.jeuServeur.envoiJeuATous();
+		}
 	}
-
 }
