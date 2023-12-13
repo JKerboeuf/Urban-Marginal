@@ -2,7 +2,7 @@
 
 Devoir pour le BTS SIO au CNED  
 Un petit jeu de tir multijoueur en 2D fait en Java  
-Une instance doit etre lancer comme serveur et une autre pour les joueurs
+Une instance doit etre lancé comme serveur et une autre pour les joueurs
 
 ## Image
 
